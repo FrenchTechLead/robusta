@@ -1,0 +1,16 @@
+.btn {
+    -fx-color: blue;
+}
+
+.btn-disabled {
+    -fx-color: red;
+}
+
+.terminal {
+    text-area-background: black ;
+    -fx-text-fill: green;
+}
+
+.terminal .content {
+    -fx-background-color: text-area-background ;
+}
