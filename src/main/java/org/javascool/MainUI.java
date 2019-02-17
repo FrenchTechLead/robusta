@@ -30,7 +30,7 @@ public class MainUI extends Application {
 		primaryStage.setTitle("Javascool light");
 		
 		Scene scene = new Scene(root, 600, 600);
-		scene.getStylesheets().add(getClass().getResource(CSS_PATH).toExternalForm());
+		//scene.getStylesheets().add(getClass().getResource(CSS_PATH).toExternalForm());
 		
 		VBox vbox =  new VBox();
 		
