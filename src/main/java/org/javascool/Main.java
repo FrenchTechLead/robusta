@@ -11,16 +11,14 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 		String s = JSFileChooser.getFile().getFileContent();
-		Jvs2Java jvs2java = new Jvs2Java();
-		
-
-		String javaCode =  jvs2java.translate(s);
+	
+		String javaCode =  Jvs2Java.translate(s, 1);
 		
 		log.debug(javaCode);
 		
 		JavaRuntimeCompiler comp = new JavaRuntimeCompiler(javaCode);
-		comp.compile();
-		comp.run();
+		comp.compile(1);
+		JavaRuntimeCompiler.run();
 		
 	}
 }

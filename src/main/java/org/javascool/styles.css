@@ -8,7 +8,7 @@
 
 .terminal {
     text-area-background: black ;
-    -fx-text-fill: green;
+    -fx-text-fill: white;
 }
 
 .terminal .content {

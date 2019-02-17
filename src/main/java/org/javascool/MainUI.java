@@ -44,6 +44,7 @@ public class MainUI extends Application {
 		root.getChildren().add(vbox);
 
 		primaryStage.setScene(scene);
+		primaryStage.setMaximized(true);
 		primaryStage.show();
 	}
 }
