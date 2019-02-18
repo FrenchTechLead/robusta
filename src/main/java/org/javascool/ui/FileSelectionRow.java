@@ -24,8 +24,8 @@ public class FileSelectionRow {
 				String fileName = selectedFile.getFileName();
 				label2.setText(fileName);
 				log.info("Selected file : "+ fileName);
-				CompileRow.getCompileBtn().setDisable2(false);
-				RunRow.getRunBtn().setDisable2(true);
+				CompileRow.getCompileBtn().setDisable(false);
+				RunRow.getRunBtn().setDisable(true);
 			}
 				
 		});

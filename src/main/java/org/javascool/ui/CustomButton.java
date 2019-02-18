@@ -14,11 +14,5 @@ public class CustomButton extends Button {
 		this.getStyleClass().add("btn");
 	    this.setPrefSize(100, 20);
 	}
-	
-	public void setDisable2(boolean value) {
-		super.setDisable(value);
-		this.getStyleClass().remove(!value ? "btn-disabled": "btn");
-		this.getStyleClass().add(value ? "btn-disabled": "btn");
-	}
 
 }

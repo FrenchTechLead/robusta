@@ -18,7 +18,7 @@ public class RunRow {
 		
 		
 		runBtn = new CustomButton(scene, "Exécuter");
-		runBtn.setDisable2(true);
+		runBtn.setDisable(true);
 		runBtn.setOnAction( event -> {
 			log.info("Running the code.");
 			JavaRuntimeCompiler.run();

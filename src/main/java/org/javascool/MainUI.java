@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MainUI extends Application {
 	
-	private static final String CSS_PATH = "styles.css";
+	private static final String CSS_PATH = "/styles.css";
 
 	public static void main(String[] args) {
 		launch(args);
@@ -30,7 +30,7 @@ public class MainUI extends Application {
 		primaryStage.setTitle("Javascool light");
 		
 		Scene scene = new Scene(root, 600, 600);
-		//scene.getStylesheets().add(getClass().getResource(CSS_PATH).toExternalForm());
+		scene.getStylesheets().add(getClass().getResource(CSS_PATH).toExternalForm());
 		
 		VBox vbox =  new VBox();
 		

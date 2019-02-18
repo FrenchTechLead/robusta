@@ -22,20 +22,19 @@ public class CompileRow {
 
 	private static int uid = 1;
 
-	private static PrintStream defaultSystemErr = System.err;
-
 	private static ByteArrayOutputStream baos;
 	private static PrintStream ps;
 
 	public static HBox getComponent(Scene scene) {
-
+		
+		PrintStream defaultSystemErr = System.err;
 		compileBtn = new CustomButton(scene, "Compiler");
-		compileBtn.setDisable2(true);
+		compileBtn.setDisable(true);
 		compileBtn.setOnAction(event -> {
 			String jvsCode = null;
 			jvsCode = JSFileChooser.getFm().getFileContent();
 			if (jvsCode != null && jvsCode != "") {
-				redirectSystemErr();
+				captureSystemErr();
 				uid++;
 				log.debug("-----JVS-----\n" + jvsCode);
 				String javaCode = Jvs2Java.translate(jvsCode, uid);
@@ -44,13 +43,15 @@ public class CompileRow {
 				try {
 					jrc.compile(uid);
 					Console.output.setText("Compilation Réussie.");
+					RunRow.getRunBtn().setDisable(false);
 				} catch (Exception e) {
-					System.out.flush();
 					Console.output.setText("Compilation Echouée.\n" + baos.toString());
+					log.error("Compilation Echouée.\n" + baos.toString());
+					RunRow.getRunBtn().setDisable(true);
+				} finally {
+					resetSystemErr(defaultSystemErr);
 				}
-				baos.reset();
-				resetSystemErr();
-				RunRow.getRunBtn().setDisable2(false);
+				
 
 			}
 
@@ -58,19 +59,17 @@ public class CompileRow {
 
 		HBox hbox = new HBox(10);
 		hbox.setPadding(new Insets(15, 0, 0, 15));
-
 		hbox.getChildren().addAll(label1, compileBtn);
-
 		return hbox;
 	}
 
-	public static void redirectSystemErr() {
+	public static void captureSystemErr() {
 		baos = new ByteArrayOutputStream();
 		ps = new PrintStream(baos);
 		System.setErr(ps);
 	}
 
-	public static void resetSystemErr() {
+	public static void resetSystemErr(PrintStream defaultSystemErr) {
 		System.setErr(defaultSystemErr);
 	}
 }
