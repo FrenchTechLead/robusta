@@ -38,15 +38,12 @@ public class Jvs2Java {
 		head.append("import static java.lang.Math.*;");
 		head.append("import static org.javascool.macros.Stdin.*;");
 		head.append("import static org.javascool.macros.Stdout.*;");
+		head.append("import static org.javascool.compiler.Utils.*;");
 		head.append("public class JvsToJavaTranslated"+uid).append(" implements Runnable{");
-		head.append("  private static final long serialVersionUID = "+uid).append("L;");
-		head.append("  public void run() {");
-		head.append("   try{ main(); } catch(Throwable e) { ");
-		head.append(
-				"    if (e.toString().matches(\".*Interrupted.*\"))println(\"\\n-------------------\\nProgramme arrêté !\\n-------------------\\n\");");
-		head.append(
-				"    else println(\"\\n-------------------\\nErreur lors de l'exécution de la proglet-------------------\\n\");}");
-		head.append("  }");
+		head.append("private static final long serialVersionUID = "+uid).append("L;");
+		head.append("public void run() {");
+		head.append("try{ main(); } catch(Throwable e) { handleRuntimeExceptions(e.getMessage()); }");
+		head.append("}\n");
 		return head;
 	}
 }

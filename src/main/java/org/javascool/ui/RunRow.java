@@ -21,6 +21,7 @@ public class RunRow {
 		runBtn.setDisable(true);
 		runBtn.setOnAction( event -> {
 			log.info("Running the code.");
+			Console.output.setText("");
 			JavaRuntimeCompiler.run();
 		});
 		

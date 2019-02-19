@@ -1,11 +1,21 @@
 package org.javascool.macros;
 
-import javax.swing.JOptionPane;
+import javafx.scene.control.TextInputDialog;
 
 public class Stdin {
+	
+	static private TextInputDialog dialog = new TextInputDialog();
+
   
 	public static String readString(String text) {
-		return JOptionPane.showInputDialog(text);
+		dialog = new TextInputDialog();
+		dialog.setHeaderText(text);
+		dialog.showAndWait();
+		return dialog.getResult();
+	}
+	
+	public static Double readDouble(String text) {
+		return new Double(readString(text));
 	}
 }
 
