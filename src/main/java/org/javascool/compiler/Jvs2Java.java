@@ -42,7 +42,7 @@ public class Jvs2Java {
 		head.append("public class JvsToJavaTranslated"+uid).append(" implements Runnable{");
 		head.append("private static final long serialVersionUID = "+uid).append("L;");
 		head.append("public void run() {");
-		head.append("try{ main(); } catch(Throwable e) { handleRuntimeExceptions(e.getMessage()); }");
+		head.append("try{ main(); } catch(Exception e) { handleRuntimeExceptions(e); }");
 		head.append("}\n");
 		return head;
 	}

@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 public class Main {
 
 	public static void main(String[] args) throws Exception {
-		String s = JSFileChooser.getFile().getFileContent();
+		/*String s = JSFileChooser.getFile().getFileContent();
 	
 		String javaCode =  Jvs2Java.translate(s, 1);
 		
@@ -18,7 +18,18 @@ public class Main {
 		
 		JavaRuntimeCompiler comp = new JavaRuntimeCompiler(javaCode);
 		comp.compile(1);
-		JavaRuntimeCompiler.run();
+		JavaRuntimeCompiler.run();*/
+		
+		int [] d = new int[1];
+		try {
+			for(int i = 0 ; i < 10; i++) {
+				log.debug(""+d[i]);
+				System.out.println(5/0);
+			}
+		} catch (Exception e) {
+			log.error(e.toString());
+		}
+		
 		
 	}
 }
