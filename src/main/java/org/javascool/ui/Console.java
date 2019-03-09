@@ -8,7 +8,7 @@ import javafx.scene.layout.VBox;
 
 public class Console {
 
-	public static volatile TextArea output = new TextArea();
+	private static volatile TextArea output = new TextArea();
 	
 	public static VBox getComponent(Scene scene) {
 		initConsole();
@@ -33,6 +33,10 @@ public class Console {
 		output.setEditable(false);
 		output.setPrefHeight(500);
 		output.getStyleClass().add("terminal");
+		return output;
+	}
+	
+	public static synchronized TextArea getOutput() {
 		return output;
 	}
 

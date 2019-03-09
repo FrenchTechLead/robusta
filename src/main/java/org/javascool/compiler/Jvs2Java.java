@@ -29,6 +29,7 @@ public class Jvs2Java {
 		}
 		
 		String finalBody = body.toString().replaceAll("(while.*\\{)", "$1 sleep(1);");
+		finalBody = finalBody.toString().replaceAll("(for.*\\{)", "$1 sleep(1);");
 		String head = getHead(uid).toString();
 		return  head + finalBody + "\n\n" + "}";
 	}

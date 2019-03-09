@@ -31,7 +31,15 @@ public class Utils {
 	}
 	
 	private static void printException(String s1, String s2, int lineNumber) {
-		Console.output.appendText( "\n-------Javascool Exception------- Ligne : " + lineNumber + "\n"+s2);
-		Console.output.appendText("\n\n-------Java Runtime Exception-------\n" + s1);
+		Console.getOutput().appendText( "\n-------Javascool Exception------- Ligne : " + lineNumber + "\n"+s2);
+		Console.getOutput().appendText("\n\n-------Java Runtime Exception-------\n" + s1);
+	}
+	
+	public static void sleep(int delay) {
+		try {
+			Thread.sleep(delay);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 }

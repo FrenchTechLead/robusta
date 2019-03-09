@@ -21,8 +21,10 @@ public class RunRow {
 		runBtn.setDisable(true);
 		runBtn.setOnAction( event -> {
 			log.info("Running the code.");
-			Console.output.setText("");
-			JavaRuntimeCompiler.run();
+			Console.getOutput().setText("");
+			Runnable task2 = () -> JavaRuntimeCompiler.run();
+			new Thread(task2).start();
+			
 		});
 		
 		HBox hbox = new HBox(10);

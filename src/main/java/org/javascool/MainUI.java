@@ -29,7 +29,7 @@ public class MainUI extends Application {
 		log.debug("App loading ...");
 		primaryStage.setTitle("Javascool light");
 		
-		Scene scene = new Scene(root, 600, 600);
+		Scene scene = new Scene(root, 1600, 1800);
 		scene.getStylesheets().add(getClass().getResource(CSS_PATH).toExternalForm());
 		
 		VBox vbox =  new VBox();

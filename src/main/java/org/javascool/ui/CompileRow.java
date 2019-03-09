@@ -43,10 +43,10 @@ public class CompileRow {
 				JavaRuntimeCompiler jrc = new JavaRuntimeCompiler(javaCode);
 				try {
 					jrc.compile(uid);
-					Console.output.setText("Compilation Réussie.");
+					Console.getOutput().setText("Compilation Réussie.");
 					RunRow.getRunBtn().setDisable(false);
 				} catch (Exception e) {
-					Console.output.setText("Compilation Echouée.\n" + baos.toString());
+					Console.getOutput().setText("Compilation Echouée.\n" + baos.toString());
 					log.error("Compilation Echouée.\n" + baos.toString()+ baos.size());
 					RunRow.getRunBtn().setDisable(true);
 				} finally {
