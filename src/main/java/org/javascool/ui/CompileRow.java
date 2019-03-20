@@ -34,7 +34,7 @@ public class CompileRow {
 		compileBtn.setOnAction(event -> {
 			baos.reset();
 			String jvsCode = null;
-			jvsCode = JSFileChooser.getFm().getFileContent();
+			jvsCode = JSFileChooser.getFileContent();
 			if (jvsCode != null && jvsCode != "") {
 				uid++;
 				log.debug("-----JVS-----\n" + jvsCode);

@@ -5,18 +5,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 import javafx.stage.FileChooser;
-import lombok.Getter;
-
-import org.javascool.models.FileModel;
 
 public class JSFileChooser {
 
 	private static File workingDirectory;
 	private static FileChooser fs;
-	@Getter
-	public static FileModel fm = new FileModel();
+	public static File selectedFile;
 
-	public static FileModel getFile() {
+	public static File getFile() {
 
 		workingDirectory = new File(System.getProperty("user.dir") + "/..");
 
@@ -24,23 +20,25 @@ public class JSFileChooser {
 		fs.setTitle("Selectionner le fichier .jvs");
 		fs.setInitialDirectory(workingDirectory);
 		fs.getExtensionFilters().add(new FileChooser.ExtensionFilter(".jvs file", "*.jvs"));
+		selectedFile = fs.showOpenDialog(null);
+		return selectedFile;
 
-		File f = fs.showOpenDialog(null);
-		if (null != f) {
+	}
+
+	public static String getFileContent() {
+		if (null != selectedFile) {
 			byte[] bytes;
 			try {
-				bytes = Files.readAllBytes(f.toPath());
+				bytes = Files.readAllBytes(selectedFile.toPath());
 			} catch (IOException e) {
 				e.printStackTrace();
 				return null;
 			}
-			
-			fm.setFileContent(new String(bytes));
-			fm.setFileName(f.getName());
-			return fm;
+
+			return new String(bytes);
 		} else {
 			return null;
 		}
-	}
 
+	}
 }
