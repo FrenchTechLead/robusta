@@ -1,48 +1,34 @@
 package org.javascool.compiler;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class Jvs2Java {
 
 	public static String translate(String jvsCode, int uid) {
 		
 		String text = jvsCode.replace((char) 160, ' ');
-		String[] lines = text.split("\n");
 		
 		StringBuilder body = new StringBuilder();
-
-		if (!text.replaceAll("[ \n\r\t]+", " ").matches(".*void[ ]+main[ ]*\\([ ]*\\).*")) {
-			if (text.replaceAll("[ \n\r\t]+", " ").matches(".*main[ ]*\\([ ]*\\).*")) {
-				log.error(
-						"Attention: il faut mettre \"void\" devant \"main()\" pour que le programme puisse se compiler");
-				text = text.replaceFirst("main[ ]*\\([ ]*\\)", "void main()");
-			} else {
-				log.error(
-						"Attention: il faut un block \"void main()\" pour que le programme puisse se compiler");
-				text = "\nvoid main() {\n" + text + "\n}\n";
-			}
-		}
-
-		for (String line : lines) {
-			body.append(line).append("\n");
-		}
+		
+		body.append(text);
+		
 		
 		String finalBody = body.toString().replaceAll("(while.*\\{)", "$1 sleep(1);");
 		finalBody = finalBody.toString().replaceAll("(for.*\\{)", "$1 sleep(1);");
 		String head = getHead(uid).toString();
-		return  head + finalBody + "\n\n" + "}";
+		return  head + finalBody + "\n}";
 	}
 	
 	private static  StringBuilder getHead(int uid) {
+		final String CLASS_NAME = "JvsToJavaTranslated"+uid;
 		StringBuilder head = new StringBuilder();
+		head.append("package org.javascool;");
+		head.append("import org.javascool.compiler.*;");
 		head.append("import static java.lang.Math.*;");
 		head.append("import static org.javascool.macros.Stdin.*;");
 		head.append("import static org.javascool.macros.Stdout.*;");
 		head.append("import static org.javascool.compiler.Utils.*;");
-		head.append("public class JvsToJavaTranslated"+uid).append(" implements Runnable{");
-		head.append("private static final long serialVersionUID = "+uid).append("L;");
-		head.append("public void run() {");
+		head.append("public class " + CLASS_NAME + " implements IMainWrapper {");
+		head.append("private static final long serialVersionUID = " + uid + "L;");
+		head.append("@Override public void call() {");
 		head.append("try{ main(); } catch(Exception e) { handleRuntimeExceptions(e); }");
 		head.append("}\n");
 		return head;

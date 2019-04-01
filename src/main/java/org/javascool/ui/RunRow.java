@@ -1,6 +1,7 @@
 package org.javascool.ui;
 
 import org.javascool.compiler.JavaRuntimeCompiler;
+
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -22,9 +23,7 @@ public class RunRow {
 		runBtn.setOnAction( event -> {
 			log.info("Running the code.");
 			Console.getOutput().setText("");
-			Runnable task2 = () -> JavaRuntimeCompiler.run();
-			new Thread(task2).start();
-			
+			JavaRuntimeCompiler.run();
 		});
 		
 		HBox hbox = new HBox(10);

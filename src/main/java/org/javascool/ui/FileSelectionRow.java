@@ -38,7 +38,7 @@ public class FileSelectionRow {
 		HBox hbox = new HBox(10);
 		hbox.setPadding(new Insets(15, 0, 0, 15));
 
-		label2.setPrefSize(100, 20);
+		label2.setPrefSize(300, 20);
 		hbox.getChildren().addAll(label1, btn, label2);
 
 		return hbox;
