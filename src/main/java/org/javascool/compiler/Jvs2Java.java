@@ -11,8 +11,8 @@ public class Jvs2Java {
 		body.append(text);
 		
 		
-		String finalBody = body.toString().replaceAll("(while.*\\{)", "$1 sleep(1);");
-		finalBody = finalBody.toString().replaceAll("(for.*\\{)", "$1 sleep(1);");
+		String finalBody = body.toString().replaceAll("(while.*\\{)", "$1 sleep(2);");
+		finalBody = finalBody.toString().replaceAll("(for.*\\{)", "$1 sleep(2);");
 		String head = getHead(uid).toString();
 		return  head + finalBody + "\n}";
 	}
@@ -21,7 +21,7 @@ public class Jvs2Java {
 		final String CLASS_NAME = "JvsToJavaTranslated"+uid;
 		StringBuilder head = new StringBuilder();
 		head.append("package org.javascool;");
-		head.append("import org.javascool.compiler.*;");
+		head.append("import org.javascool.compiler.IMainWrapper;");
 		head.append("import static java.lang.Math.*;");
 		head.append("import static org.javascool.macros.Stdin.*;");
 		head.append("import static org.javascool.macros.Stdout.*;");
