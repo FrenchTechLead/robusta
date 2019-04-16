@@ -1,18 +1,15 @@
 package org.javascool.ui;
 
-import javafx.scene.Cursor;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javax.swing.JButton;
 
-public class CustomButton extends Button {
+public class CustomButton extends JButton {
+	
+	private static final long serialVersionUID = -8001873888481812609L;
 
-	CustomButton(Scene scene, String Btntext) {
+	CustomButton(String Btntext) {
 		super();
 		this.setText(Btntext);
-		this.setOnMouseEntered((x)-> scene.setCursor(Cursor.HAND));
-		this.setOnMouseExited((x)-> scene.setCursor(Cursor.DEFAULT));
-		this.getStyleClass().add("btn");
-	    this.setPrefSize(100, 20);
+	    this.setSize(100, 20);
 	}
 
 }

@@ -3,20 +3,19 @@ package org.javascool.ui;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import org.javascool.compiler.JavaRuntimeCompiler;
 import org.javascool.compiler.Jvs2Java;
 
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class CompileRow {
 
-	public static Label label1 = new Label("2");
+	public static JLabel label1 = new JLabel("2");
 	@Getter
 	public static CustomButton compileBtn;
 
@@ -26,12 +25,12 @@ public class CompileRow {
 	private static PrintStream ps = new PrintStream(baos);
 	
 
-	public static HBox getComponent(Scene scene) {
+	public static JPanel getComponent() {
 		
 		System.setErr(ps);
-		compileBtn = new CustomButton(scene, "Compiler");
-		compileBtn.setDisable(true);
-		compileBtn.setOnAction(event -> {
+		compileBtn = new CustomButton("Compiler");
+		compileBtn.setEnabled(false);
+		compileBtn.addActionListener((a) -> {
 			baos.reset();
 			String jvsCode = null;
 			jvsCode = JSFileChooser.getFileContent();
@@ -44,11 +43,11 @@ public class CompileRow {
 				try {
 					jrc.compile(uid);
 					Console.getOutput().setText("Compilation Réussie.");
-					RunRow.getRunBtn().setDisable(false);
+					RunRow.getRunBtn().setEnabled(true);
 				} catch (Exception e) {
 					Console.getOutput().setText("Compilation Echouée.\n" + baos.toString());
 					log.error("Compilation Echouée.\n" + baos.toString()+ baos.size());
-					RunRow.getRunBtn().setDisable(true);
+					RunRow.getRunBtn().setEnabled(false);
 				} finally {
 				}
 				
@@ -57,9 +56,10 @@ public class CompileRow {
 
 		});
 
-		HBox hbox = new HBox(10);
-		hbox.setPadding(new Insets(15, 0, 0, 15));
-		hbox.getChildren().addAll(label1, compileBtn);
-		return hbox;
+		JPanel p = new JPanel();
+		p.add(label1);
+		p.add(compileBtn);
+		p.setVisible(true);
+		return p;
 	}
 }

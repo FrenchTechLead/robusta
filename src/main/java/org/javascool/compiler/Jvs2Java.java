@@ -8,11 +8,10 @@ public class Jvs2Java {
 		
 		StringBuilder body = new StringBuilder();
 		
-		body.append(text);
+		body.append(text);		
 		
-		
-		String finalBody = body.toString().replaceAll("(while.*\\{)", "$1 sleep(2);");
-		finalBody = finalBody.toString().replaceAll("(for.*\\{)", "$1 sleep(2);");
+		String finalBody = body.toString();//.replaceAll("(while.*\\{)", "$1 sleep(2);");
+		//finalBody = finalBody.toString().replaceAll("(for.*\\{)", "$1 sleep(2);");
 		String head = getHead(uid).toString();
 		return  head + finalBody + "\n}";
 	}
@@ -21,14 +20,13 @@ public class Jvs2Java {
 		final String CLASS_NAME = "JvsToJavaTranslated"+uid;
 		StringBuilder head = new StringBuilder();
 		head.append("package org.javascool;");
-		head.append("import org.javascool.compiler.IMainWrapper;");
 		head.append("import static java.lang.Math.*;");
 		head.append("import static org.javascool.macros.Stdin.*;");
 		head.append("import static org.javascool.macros.Stdout.*;");
 		head.append("import static org.javascool.compiler.Utils.*;");
-		head.append("public class " + CLASS_NAME + " implements IMainWrapper {");
+		head.append("public class " + CLASS_NAME + " implements Runnable {");
 		head.append("private static final long serialVersionUID = " + uid + "L;");
-		head.append("@Override public void call() {");
+		head.append("@Override public void run() {");
 		head.append("try{ main(); } catch(Exception e) { handleRuntimeExceptions(e); }");
 		head.append("}\n");
 		return head;

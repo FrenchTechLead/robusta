@@ -2,46 +2,45 @@ package org.javascool.ui;
 
 import java.io.File;
 
-import javafx.geometry.Insets;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+
 import lombok.extern.slf4j.Slf4j;
-import javafx.scene.Scene;
 
 @Slf4j
 public class FileSelectionRow {
 
-	public static Label label1 = new Label("1");
-	public static Label label2 = new Label("Aucun fichier.");
+	public static JLabel label1 = new JLabel("1");
+	public static JLabel label2 = new JLabel("Aucun fichier.");
 
-	public static HBox getComponent(Scene scene) {
+	public static JPanel getComponent() {
 
-		CustomButton btn = new CustomButton(scene, "Ouvrir");
-		btn.setOnAction(event -> {
+		CustomButton btn = new CustomButton( "Ouvrir");
+		btn.addActionListener(event -> {
 			Console.getOutput().setText("");
 			File f = JSFileChooser.getFile();
 			if (f != null) {
 				String fileName = f.getName();
 				label2.setText(fileName);
 				log.info("Selected file : " + fileName);
-				CompileRow.getCompileBtn().setDisable(false);
-				RunRow.getRunBtn().setDisable(true);
+				CompileRow.getCompileBtn().setEnabled(true);
+				RunRow.getRunBtn().setEnabled(false);
 			} else {
 				label2.setText("Aucun fichier");
 				log.info("Aucun fichier sélectionné");
-				CompileRow.getCompileBtn().setDisable(true);
-				RunRow.getRunBtn().setDisable(true);
+				CompileRow.getCompileBtn().setEnabled(false);
+				RunRow.getRunBtn().setEnabled(false);
 			}
 
 		});
 
-		HBox hbox = new HBox(10);
-		hbox.setPadding(new Insets(15, 0, 0, 15));
-
-		label2.setPrefSize(300, 20);
-		hbox.getChildren().addAll(label1, btn, label2);
-
-		return hbox;
+		JPanel p = new JPanel();
+		p.add(label1);
+		p.add(btn);
+		p.add(label2);
+		p.setVisible(true);
+		return p;
 	}
 
 }

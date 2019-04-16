@@ -31,8 +31,8 @@ public class Utils {
 	}
 	
 	private static void printException(String s1, String s2, int lineNumber) {
-		Console.getOutput().appendText( "\n-------Javascool Exception------- Ligne : " + lineNumber + "\n"+s2);
-		Console.getOutput().appendText("\n\n-------Java Exception-------\n" + s1);
+		Console.getOutput().append( "\n-------Javascool Exception------- Ligne : " + lineNumber + "\n"+s2);
+		Console.getOutput().append("\n\n-------Java Exception-------\n" + s1);
 	}
 	
 	public static void sleep(int delay) {

@@ -1,42 +1,40 @@
 package org.javascool.ui;
 
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class Console {
 
-	private static volatile TextArea output = new TextArea();
+	private static volatile JTextArea output = new JTextArea();
 	
-	public static VBox getComponent(Scene scene) {
-		initConsole();
-		VBox vbox =  new VBox();
-		vbox.getChildren().addAll(
-				output,
-				getControlBtns(scene)
-				);
-		vbox.setPadding(new Insets(15, 15, 0, 15));
-		return vbox;
-	}
-	
-	private static HBox getControlBtns(Scene scene) {
-		HBox hbox = new HBox(20);
-		CustomButton btnEffacer =  new CustomButton(scene, "Effacer");
-		btnEffacer.setOnAction((e)-> output.setText(""));
-		hbox.getChildren().add(btnEffacer);
-		return hbox;
-	}
-	
-	private static TextArea initConsole() {
+	public static JPanel getComponent() {
 		output.setEditable(false);
-		output.setPrefHeight(500);
-		output.getStyleClass().add("terminal");
-		return output;
+		output.setVisible(true);
+		//output.setPreferredSize(new Dimension(780, 490));
+		output.setBackground(Color.BLACK);
+		output.setForeground(Color.WHITE);
+		JScrollPane scroll = new JScrollPane (output, 
+				   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		JPanel p = new JPanel();
+		p.setPreferredSize(new Dimension(790, 500));
+		p.setLayout(new BorderLayout());
+		p.add(scroll, BorderLayout.CENTER);
+		p.add(getControlBtn(), BorderLayout.SOUTH);
+		return p;
 	}
 	
-	public static synchronized TextArea getOutput() {
+	private static CustomButton getControlBtn() {
+		CustomButton btnEffacer =  new CustomButton("Effacer");
+		btnEffacer.addActionListener((e)-> output.setText(""));
+		return btnEffacer;
+	}
+	
+	public static synchronized JTextArea getOutput() {
 		return output;
 	}
 

@@ -1,50 +1,60 @@
 package org.javascool;
 
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 import org.javascool.ui.CompileRow;
 import org.javascool.ui.Console;
 import org.javascool.ui.FileSelectionRow;
 import org.javascool.ui.RunRow;
 
-import javafx.application.Application;
-
-import javafx.scene.Scene;
-
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class MainUI extends Application {
-	
-	private static final String CSS_PATH = "/styles.css";
+public class MainUI extends JFrame {
 
-	public static void main(String[] args) {
-		launch(args);
+	private static final long serialVersionUID = 6543132165763L;
+
+	MainUI() {
+		super("Javascool light");
+		WindowListener l = new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
+			}
+		};
+		addWindowListener(l);
 	}
 
-	@Override
-	public void start(Stage primaryStage) {
-		StackPane root = new StackPane();
-		log.debug("App loading ...");
-		primaryStage.setTitle("Javascool light");
-		
-		Scene scene = new Scene(root, 1600, 1800);
-		scene.getStylesheets().add(getClass().getResource(CSS_PATH).toExternalForm());
-		
-		VBox vbox =  new VBox();
-		
-		vbox.getChildren().addAll(
-				FileSelectionRow.getComponent(scene),
-				CompileRow.getComponent(scene),
-				RunRow.getComponent(scene),
-				Console.getComponent(scene)
-				);
-		
-		root.getChildren().add(vbox);
+	public static void main(String[] args) {
+		MainUI ui = new MainUI();
+		ui.start();
+	}
 
-		primaryStage.setScene(scene);
-		primaryStage.setMaximized(true);
-		primaryStage.show();
+	public void start() {
+		log.debug("App loading ...");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setSize(800, 600);
+		Container contentPane = getContentPane();
+		contentPane.setLayout(new BorderLayout());
+		
+		JPanel firstPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		firstPanel.add(FileSelectionRow.getComponent());
+		firstPanel.add(CompileRow.getComponent());
+		firstPanel.add(RunRow.getComponent());
+		contentPane.add(firstPanel, BorderLayout.NORTH);
+		
+		JPanel secondPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		secondPanel.add(Console.getComponent());
+		
+		contentPane.add(secondPanel, BorderLayout.CENTER);
+		
+		this.setVisible(true);
 	}
 }
