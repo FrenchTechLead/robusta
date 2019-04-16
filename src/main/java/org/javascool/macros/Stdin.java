@@ -1,10 +1,9 @@
 package org.javascool.macros;
 
-import javafx.scene.control.TextInputDialog;
+import javax.swing.JOptionPane;
 
 public class Stdin {
 	
-	static private TextInputDialog dialog = new TextInputDialog();
 	static final String DEFAULT_READER_TEXT = "Veuillez entrer un(e) ";
   
 	/*  ----- String Readers   -----  */
@@ -63,10 +62,8 @@ public class Stdin {
 	
 	
 	private static String getResult(String text) {
-		dialog = new TextInputDialog();
-		dialog.setHeaderText(text);
-		dialog.showAndWait();
-		return dialog.getResult();
+
+		return (String)JOptionPane.showInputDialog(text);
 	}
 }
 

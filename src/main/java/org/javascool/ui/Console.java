@@ -15,7 +15,6 @@ public class Console {
 	public static JPanel getComponent() {
 		output.setEditable(false);
 		output.setVisible(true);
-		//output.setPreferredSize(new Dimension(780, 490));
 		output.setBackground(Color.BLACK);
 		output.setForeground(Color.WHITE);
 		JScrollPane scroll = new JScrollPane (output, 
