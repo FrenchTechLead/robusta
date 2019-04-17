@@ -20,9 +20,19 @@ public class RunRow {
 		runBtn = new CustomButton("Exécuter");
 		runBtn.setEnabled(false);
 		runBtn.addActionListener( event -> {
-			log.info("Running the code.");
-			Console.getOutput().setText("");
-			JavaRuntimeCompiler.doRun();
+			boolean isProgramRunning = JavaRuntimeCompiler.getThread() != null;
+			if(isProgramRunning) {
+				log.info("Stopping the program.");
+				runBtn.setText("Exécuter");
+				Console.getOutput().setText("");
+				JavaRuntimeCompiler.doStop();
+			} else {
+				log.info("Running the code.");
+				runBtn.setText("Arrêter");
+				Console.getOutput().setText("");
+				JavaRuntimeCompiler.doRun();
+			}
+			
 		});
 	    
 	    JPanel p = new JPanel();

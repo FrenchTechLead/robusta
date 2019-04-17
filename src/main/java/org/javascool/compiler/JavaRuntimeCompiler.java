@@ -1,5 +1,6 @@
 package org.javascool.compiler;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.openhft.compiler.CachedCompiler;
 import net.openhft.compiler.CompilerUtils;
@@ -10,6 +11,7 @@ public class JavaRuntimeCompiler {
 	private final String className = "org.javascool.JvsToJavaTranslated";
 	private String javaCode;
 	private static Runnable runnable;
+	@Getter
 	private static Thread thread;
 
 	public JavaRuntimeCompiler(String javaCode) {
@@ -47,7 +49,7 @@ public class JavaRuntimeCompiler {
 
 	public static void doStop(String message) {
 		if (message != null) {
-			System.out.println("Cause de l'interruption : " + message);
+			log.error("Cause de l'interruption : " + message);
 		}
 		if (thread != null) {
 			thread.interrupt();
