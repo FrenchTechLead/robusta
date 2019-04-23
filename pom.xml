@@ -41,6 +41,12 @@
 			<version>2.6</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.9</version>
+		</dependency>
+
 
 	</dependencies>
 	<build>
@@ -60,7 +66,7 @@
 				<artifactId>javafx-maven-plugin</artifactId>
 				<version>8.8.3</version>
 				<configuration>
-				<vendor>javascool-light</vendor>
+					<vendor>javascool-light</vendor>
 					<mainClass>org.javascool.MainUI</mainClass>
 				</configuration>
 			</plugin>

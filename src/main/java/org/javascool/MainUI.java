@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -32,7 +33,7 @@ public class MainUI extends JFrame {
 		addWindowListener(l);
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		MainUI ui = new MainUI();
 		ui.start();
 	}

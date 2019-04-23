@@ -3,6 +3,7 @@ package org.javascool.ui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -17,6 +18,7 @@ public class Console {
 		output.setVisible(true);
 		output.setBackground(Color.BLACK);
 		output.setForeground(Color.WHITE);
+		output.setFont(new Font("monospaced", Font.PLAIN, 12));
 		JScrollPane scroll = new JScrollPane (output, 
 				   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		JPanel p = new JPanel();
