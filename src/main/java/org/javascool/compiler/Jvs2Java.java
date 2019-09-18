@@ -2,7 +2,7 @@ package org.javascool.compiler;
 
 public class Jvs2Java {
 
-	public static String translate(String jvsCode, int uid) {
+	public static String translate(String jvsCode) {
 		
 		String text = jvsCode.replace((char) 160, ' ');
 		
@@ -12,21 +12,19 @@ public class Jvs2Java {
 		
 		String finalBody = body.toString();//.replaceAll("(while.*\\{)", "$1 sleep(2);");
 		//finalBody = finalBody.toString().replaceAll("(for.*\\{)", "$1 sleep(2);");
-		String head = getHead(uid).toString();
+		String head = getHead().toString();
 		return  head + finalBody + "\n}";
 	}
 	
-	private static  StringBuilder getHead(int uid) {
-		final String CLASS_NAME = "JvsToJavaTranslated"+uid;
+	private static  StringBuilder getHead() {
+		final String CLASS_NAME = "C";
 		StringBuilder head = new StringBuilder();
-		head.append("package org.javascool;");
 		head.append("import static java.lang.Math.*;");
 		head.append("import static org.javascool.macros.Stdin.*;");
 		head.append("import static org.javascool.macros.Stdout.*;");
 		head.append("import static org.javascool.compiler.Utils.*;");
-		head.append("public class " + CLASS_NAME + " implements Runnable {");
-		head.append("private static final long serialVersionUID = " + uid + "L;");
-		head.append("@Override public void run() {");
+		head.append("public class " + CLASS_NAME + "{");
+		head.append("public static void main(String[] args) {");
 		head.append("try{ main(); } catch(Exception e) { handleRuntimeExceptions(e); }");
 		head.append("}\n");
 		return head;

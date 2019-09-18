@@ -1,10 +1,5 @@
 package org.javascool.compiler;
 
-import org.javascool.ui.Console;
-
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class Utils {
 	
 	public static void handleRuntimeExceptions(Exception e) {
@@ -27,12 +22,12 @@ public class Utils {
 			printException(s, exceptionName, lineNumber);
 			break;
 		}
-		log.error(s);
+		System.out.println(s);
 	}
 	
 	private static void printException(String s1, String s2, int lineNumber) {
-		Console.getOutput().append( "\n-------Javascool Exception------- Ligne : " + lineNumber + "\n"+s2);
-		Console.getOutput().append("\n\n-------Java Exception-------\n" + s1);
+		System.out.println( "\n-------Javascool Exception------- Ligne : " + lineNumber + "\n"+s2);
+		System.out.println("\n\n-------Java Exception-------\n" + s1);
 	}
 	
 	public static void sleep(int delay) {
