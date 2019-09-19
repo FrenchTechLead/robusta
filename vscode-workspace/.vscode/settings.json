@@ -6,10 +6,9 @@
     "**/.hg": true,
     "**/CVS": true,
     "**/.DS_Store": true,
-    "**/.build-tools": true,
     "**/.vscode": true
   },
-  "workbench.iconTheme": "vs-seti",
+  "workbench.iconTheme": "seti-javascool",
   "explorer.confirmDragAndDrop": false,
   "explorer.confirmDelete": false
 }

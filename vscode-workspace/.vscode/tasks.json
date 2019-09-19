@@ -26,7 +26,7 @@
       "type": "shell",
       "command": "cd .vscode && ./run-task.sh",
       "windows": {
-        "command": "cd .vscode && run-task.bat x"
+        "command": "cd .vscode && run-task.bat"
       },
       "presentation": {
         "clear": true,
