@@ -9,7 +9,7 @@
     "**/.build-tools1": true,
     "**/.vscode1": true
   },
-  "workbench.iconTheme": "seti-javascool",
+  "workbench.iconTheme": "vs-seti",
   "explorer.confirmDragAndDrop": false,
   "explorer.confirmDelete": false
 }
