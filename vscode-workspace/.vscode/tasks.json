@@ -4,9 +4,9 @@
     {
       "label": "Compiler",
       "type": "shell",
-      "command": "cd .build-tools && ./compile-task.sh ${file}",
+      "command": "cd .vscode && ./compile-task.sh ${file}",
       "windows": {
-        "command": "cd .build-tools && compile-task.bat ${file}"
+        "command": "cd .vscode && compile-task.bat ${file}"
       },
       "group": {
         "kind": "build",
@@ -24,9 +24,9 @@
     {
       "label": "Exécuter",
       "type": "shell",
-      "command": "cd .build-tools && ./run-task.sh",
+      "command": "cd .vscode && ./run-task.sh",
       "windows": {
-        "command": "cd .build-tools && run-task.bat x"
+        "command": "cd .vscode && run-task.bat x"
       },
       "presentation": {
         "clear": true,

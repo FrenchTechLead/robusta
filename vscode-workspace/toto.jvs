@@ -1,5 +1,4 @@
 static void main() {
-    Integer x = readInteger("Veuillez entrer un nombre svp :");
-    print("Le nombre entré est : " + x);
-
+    Integer x = 1 / 1;
+    println("sdfsdf");
 }

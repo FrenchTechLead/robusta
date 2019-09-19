@@ -16,4 +16,7 @@ public class Stdout {
 			System.out.println();
 
 	}
+	public static void printError(String str) {
+		System.err.println(str);
+	}
 }

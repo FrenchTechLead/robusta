@@ -1,8 +1,8 @@
 package org.javascool.compiler;
 
-public class Utils {
+public class RunTimeErrorHandler {
 	
-	public static void handleRuntimeExceptions(Exception e) {
+	public static void handle(Exception e) {
 		int lineNumber = e.getStackTrace()[0].getLineNumber() - 1;
 		String s = e.toString();
 		String [] arr = s.split(":");
@@ -30,11 +30,5 @@ public class Utils {
 		System.out.println("\n\n-------Java Exception-------\n" + s1);
 	}
 	
-	public static void sleep(int delay) {
-		try {
-			Thread.sleep(delay);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
+
 }

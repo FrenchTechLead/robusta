@@ -22,7 +22,6 @@
 			<version>3.9</version>
 		</dependency>
 
-
 	</dependencies>
 	<build>
 		<plugins>
@@ -41,11 +40,11 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>org.javascool.MainConsole</mainClass>
+							<mainClass>org.javascool.Main</mainClass>
 							<addClasspath>true</addClasspath>
 						</manifest>
 					</archive>
-					<outputDirectory>vscode-workspace/.build-tools/</outputDirectory>
+					<outputDirectory>vscode-workspace/.vscode/</outputDirectory>
 					<descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>
