@@ -1,1 +1,0 @@
-java -jar a.jar compile $1

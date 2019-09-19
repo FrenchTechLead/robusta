@@ -1,7 +1,0 @@
-static void main() {
-    for (int i = 1; i < 10; i++) {
-        println(i);
-        sleep(1000);
-    }
-
-}

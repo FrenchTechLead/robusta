@@ -1,4 +1,0 @@
-static void main() {
-    Integer x = 1 / 1;
-    println("sdfsdf");
-}
