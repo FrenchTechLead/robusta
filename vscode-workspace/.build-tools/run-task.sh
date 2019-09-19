@@ -1,1 +1,1 @@
-cd .build-tools && java -cp a.jar: C
+java -cp a.jar: C

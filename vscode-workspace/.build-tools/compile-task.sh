@@ -1,1 +1,1 @@
-cd .build-tools && java -jar a.jar $1 && javac -classpath ".:./a.jar" C.java
+java -jar a.jar $1 && javac -classpath ".:./a.jar" C.java
