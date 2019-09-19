@@ -28,7 +28,7 @@ L'espace de travail vscode contient les scripts nécéssaires pour le support de
 ![Screenshot 2019-09-20 at 00 07 10](https://user-images.githubusercontent.com/10856604/65284718-b1422900-db3a-11e9-9205-a6c1248de1b0.png)
 - Cliquez sur Exécuter pour voir l'exécution du programme
 ![Screenshot 2019-09-20 at 00 09 34](https://user-images.githubusercontent.com/10856604/65284791-f6665b00-db3a-11e9-878b-91ea3df8392c.png)
-- Amusez vous à écrire vos propres programme :wink:
+- Amusez vous à écrire vos propres programmes :wink:
 
 ### Licence :
 MIT
