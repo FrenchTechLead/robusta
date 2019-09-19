@@ -15,7 +15,7 @@ javac 11.0.2
 Télécharger le logiciel [VSCODE](https://code.visualstudio.com) et l'installer.
 #### 3-Télécharger l'espace de travail Javascool-Light :
 L'espace de travail vscode contient les scripts nécéssaires pour le support de `javascool-light` par vscode.
-- Télécharger l'espace de travail [ici](https://github.com/Meshredded/javascool-light/blob/vs-tasks-version/vscode-workspace.zip)
+- Télécharger l'espace de travail [ici](https://github.com/Meshredded/javascool-light/raw/vs-tasks-version/vscode-workspace.zip)
 - Décompresser le fichier `vscode-workspace.zip`
 - La décompression donne un dossier `vscode-worspace` (Ce dossier peut parraitre vide dans certains systèmes d'exploitations basé sur Unix mais il ne l'est pas, le dossier contient des scripts pour vscode).
 - Ouvrir vscode puis cliquer sur `file > Open...` et selectionner le dossier `vscode-workspace`.
