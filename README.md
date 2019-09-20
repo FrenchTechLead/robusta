@@ -18,7 +18,7 @@ Télécharger le logiciel [VSCODE](https://code.visualstudio.com) et l'installer
 L'espace de travail vscode contient les scripts nécéssaires pour le support de `javascool-light` par vscode.
 - Télécharger l'espace de travail [ici](https://github.com/Meshredded/javascool-light/raw/vs-tasks-version/vscode-workspace.zip)
 - Décompresser le fichier `vscode-workspace.zip`
-- La décompression donne un dossier `vscode-worspace` (Ce dossier peut parraitre vide dans certains systèmes d'exploitations basé sur Unix mais il ne l'est pas, le dossier contient des scripts pour vscode).
+- La décompression donne un dossier `vscode-workspace` (Ce dossier peut parraitre vide dans certains systèmes d'exploitations basé sur Unix mais il ne l'est pas, le dossier contient des scripts pour vscode).
 - Ouvrir vscode puis cliquer sur `file > Open...` et selectionner le dossier `vscode-workspace`.
 - La notification suivante s'affiche à l'ouverture du dossier :
 ![Screenshot 2019-09-19 at 23 57 01](https://user-images.githubusercontent.com/10856604/65284221-39bfca00-db39-11e9-9183-9f8479a92e54.png)
