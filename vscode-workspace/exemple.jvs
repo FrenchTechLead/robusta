@@ -1,4 +1,3 @@
 static void main() {
-    int x = readInteger("Queel est la valeur");
-    println("La valeur est: " + x);
+    int x = 1 / 0;
 }

@@ -1,6 +1,6 @@
 package org.javascool.macros;
 
-import javax.swing.JOptionPane;
+import java.util.Scanner;
 
 public class Stdin {
 	
@@ -62,8 +62,11 @@ public class Stdin {
 	
 	
 	private static String getResult(String text) {
-
-		return (String)JOptionPane.showInputDialog(text);
+		System.out.println(text);
+        Scanner scanner = new Scanner(System. in);
+        String s = scanner.nextLine();
+        scanner.close();
+        return s; 
 	}
 }
 

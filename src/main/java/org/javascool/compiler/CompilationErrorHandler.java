@@ -14,7 +14,7 @@ public class CompilationErrorHandler {
 			Stdout.printError("Erreur de copilation");
 			Stdout.printError(errorStr);
 		} else {
-			Integer lineNumber = new Integer(StringUtils.substringBetween(errorStr, ":", ":")) - 1;
+			Integer lineNumber = new Integer(StringUtils.substringBetween(errorStr, ":", ":"));
 			printError(lineNumber, errorStr);
 		}
 	}

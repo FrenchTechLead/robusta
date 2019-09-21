@@ -56,10 +56,9 @@ public class JvsCompiler {
 
 		body.append(text);
 
-		String finalBody = body.toString();// .replaceAll("(while.*\\{)", "$1 sleep(2);");
-		// finalBody = finalBody.toString().replaceAll("(for.*\\{)", "$1 sleep(2);");
+		String finalBody = body.toString();
 		String head = getHead().toString();
-		return head + finalBody + "\n}";
+		return head + finalBody + "}";
 	}
 
 	private static StringBuilder getHead() {
@@ -73,7 +72,7 @@ public class JvsCompiler {
 		head.append("public class " + CLASS_NAME + "{");
 		head.append("public static void main(String[] args) {");
 		head.append("try{ new C ().main(); } catch(Exception e) { handle(e); }");
-		head.append("}\n");
+		head.append("}");
 		return head;
 	}
 

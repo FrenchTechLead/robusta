@@ -1,5 +1,6 @@
 package org.javascool.macros;
 
+
 public class Stdout {
 
 	public static void print(Object o) {
@@ -12,9 +13,9 @@ public class Stdout {
 	}
 
 	public static void clear() {
-		for (int i = 0; i < 200; i++)
-			System.out.println();
-
+		for(int i = 0; i < 200; i++)
+			System.out.println("\n");
+		
 	}
 	public static void printError(String str) {
 		System.err.println(str);
