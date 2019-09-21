@@ -1,41 +1,50 @@
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "Compiler",
-      "type": "shell",
-      "command": "cd .vscode && ./compile-task.sh ${file}",
-      "windows": {
-        "command": "cd .vscode && compile-task.bat ${file}"
-      },
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
-      "presentation": {
-        "clear": true,
-        "reveal": "always",
-        "panel": "shared",
-        "echo": false,
-        "focus": true,
-        "showReuseMessage": false
-      }
-    },
-    {
-      "label": "Exécuter",
-      "type": "shell",
-      "command": "cd .vscode && ./run-task.sh",
-      "windows": {
-        "command": "cd .vscode && run-task.bat"
-      },
-      "presentation": {
-        "clear": true,
-        "reveal": "always",
-        "panel": "shared",
-        "echo": false,
-        "focus": true,
-        "showReuseMessage": false
-      }
-    }
-  ]
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Compiler",
+			"type": "shell",
+			"command": "cd .vscode && ./compile-task.sh ${file}",
+			"windows": {
+				"command": "cd .vscode && compile-task.bat ${file}"
+			},
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"presentation": {
+				"clear": true,
+				"reveal": "always",
+				"panel": "shared",
+				"echo": false,
+				"focus": true,
+				"showReuseMessage": false
+			}
+		},
+		{
+			"label": "Exécuter",
+			"type": "shell",
+			"command": "cd .vscode && ./run-task.sh",
+			"windows": {
+				"command": "java",
+				"args": [
+					"-jar",
+					".vscode\\a.jar",
+					"compile",
+					{
+						"value": "${file}",
+						"quoting": "escape"
+					}
+				]
+			},
+			"presentation": {
+				"clear": true,
+				"reveal": "always",
+				"panel": "shared",
+				"echo": false,
+				"focus": true,
+				"showReuseMessage": false
+			}
+		}
+	]
 }

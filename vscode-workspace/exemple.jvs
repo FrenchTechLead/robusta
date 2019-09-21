@@ -1,3 +1,4 @@
 static void main() {
-    println("hello world !");
+    int x = readInteger("Queel est la valeur");
+    println("La valeur est: " + x);
 }
