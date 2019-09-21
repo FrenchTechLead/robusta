@@ -1,0 +1,3 @@
+static void main() {
+    println("Test Spaces file OK");
+}

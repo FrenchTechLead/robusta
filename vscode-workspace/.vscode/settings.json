@@ -6,7 +6,7 @@
     "**/.hg": true,
     "**/CVS": true,
     "**/.DS_Store": true,
-    "**/.vscode": true
+    "**/.vscode": false
   },
   "workbench.iconTheme": "seti-javascool",
   "explorer.confirmDragAndDrop": false,
