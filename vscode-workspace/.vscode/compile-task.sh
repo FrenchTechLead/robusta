@@ -1,1 +1,2 @@
-java -jar a.jar compile $1
+echo "$1"
+java -jar a.jar compile "$1"
