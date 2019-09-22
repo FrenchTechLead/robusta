@@ -1,3 +1,9 @@
 static void main() {
-    int x = 1 / 0;
+    println("Bonjour");
+    String s = readString("Hello : ");
+    for (int i = 0; i < 10 ; i++)
+    println(s);
+    sleep(100);
+    clear();
+    print("toto");
 }

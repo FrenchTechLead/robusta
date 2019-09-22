@@ -68,9 +68,11 @@ public class JvsCompiler {
 		head.append("import static org.javascool.macros.Stdin.*;");
 		head.append("import static org.javascool.macros.Stdout.*;");
 		head.append("import static org.javascool.macros.Utils.*;");
+		head.append("import org.javascool.macros.Console;");
 		head.append("import static org.javascool.compiler.RunTimeErrorHandler.*;");
 		head.append("public class " + CLASS_NAME + "{");
 		head.append("public static void main(String[] args) {");
+		head.append("Console.getInstance();");
 		head.append("try{ new C ().main(); } catch(Exception e) { handle(e); }");
 		head.append("}");
 		return head;

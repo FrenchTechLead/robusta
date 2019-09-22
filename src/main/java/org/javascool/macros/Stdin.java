@@ -1,72 +1,66 @@
 package org.javascool.macros;
 
-import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 public class Stdin {
-	
+
 	static final String DEFAULT_READER_TEXT = "Veuillez entrer un(e) ";
-  
-	/*  ----- String Readers   -----  */
+
+	/* ----- String Readers ----- */
 	public static String readString(String text) {
 		return getResult(text);
 	}
-	
+
 	public static String readString() {
-		return getResult(DEFAULT_READER_TEXT+"chaine de caractères");
+		return getResult(DEFAULT_READER_TEXT + "chaine de caractères");
 	}
-	
-	/*  ----- Double Readers   -----  */
+
+	/* ----- Double Readers ----- */
 	public static Double readDouble(String text) {
 		return new Double(getResult(text));
 	}
-	
+
 	public static Double readDouble() {
-		return new Double(getResult(DEFAULT_READER_TEXT+"nombre décimal (Double)"));
+		return new Double(getResult(DEFAULT_READER_TEXT + "nombre décimal (Double)"));
 	}
-	
-	/*  ----- Integer Readers   -----  */
+
+	/* ----- Integer Readers ----- */
 	public static Integer readInteger(String text) {
 		return new Integer(getResult(text));
 	}
-	
+
 	public static Integer readInteger() {
-		return new Integer(getResult(DEFAULT_READER_TEXT+"nombre entier (Integer)"));
+		return new Integer(getResult(DEFAULT_READER_TEXT + "nombre entier (Integer)"));
 	}
 
-	/*  ----- Long Readers   -----  */
+	/* ----- Long Readers ----- */
 	public static Long readLong(String text) {
 		return new Long(getResult(text));
 	}
-	
+
 	public static Long readLong() {
-		return new Long(getResult(DEFAULT_READER_TEXT+"nombre décimal (Long)"));
+		return new Long(getResult(DEFAULT_READER_TEXT + "nombre décimal (Long)"));
 	}
-	
-	/*  ----- Float Readers   -----  */
+
+	/* ----- Float Readers ----- */
 	public static Float readFloat(String text) {
 		return new Float(getResult(text));
 	}
-	
+
 	public static Float readFloat() {
-		return new Float(getResult(DEFAULT_READER_TEXT+"nombre décimal (Float)"));
+		return new Float(getResult(DEFAULT_READER_TEXT + "nombre décimal (Float)"));
 	}
-	
-	/*  ----- Boolean Readers   -----  */
+
+	/* ----- Boolean Readers ----- */
 	public static Boolean readBoolean(String text) {
 		return new Boolean(getResult(text));
 	}
-	
+
 	public static Boolean readBoolean() {
-		return new Boolean(getResult(DEFAULT_READER_TEXT+"valeur booléenne (true ou false)"));
+		return new Boolean(getResult(DEFAULT_READER_TEXT + "valeur booléenne (true ou false)"));
 	}
-	
-	
+
 	private static String getResult(String text) {
-		System.out.println(text);
-        Scanner scanner = new Scanner(System. in);
-        String s = scanner.nextLine();
-        scanner.close();
-        return s; 
+		return JOptionPane.showInputDialog(text);
 	}
 }
-
