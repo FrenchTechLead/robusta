@@ -18,26 +18,28 @@ import org.apache.commons.io.FileUtils;
 import org.javascool.macros.Stdout;
 
 public class JvsCompiler {
-
+	private static final File parentDirectory = new File(System.getProperty("user.dir"));
+	
 	public static void build(String jvsFilePath) {
 
+		File jvsFile = new File(jvsFilePath);
 		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 		StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);
 
-		File parentDirectory = new File(System.getProperty("user.dir"));
 		try {
 			fileManager.setLocation(StandardLocation.CLASS_OUTPUT, Arrays.asList(parentDirectory));
 		} catch (IOException e) {
 			Stdout.printError(e.getMessage());
 		}
-		String jvsCode = readFile(jvsFilePath);
+		String jvsCode = readFile(jvsFile);
 		String javaCode = translate(jvsCode);
 		JavaSourceFromString jsfs = new JavaSourceFromString("C", javaCode);
 		Iterable<? extends JavaFileObject> fileObjects = Arrays.asList(jsfs);
 		StringWriter output = new StringWriter();
 		boolean isCompilationSuccessful = compiler.getTask(output, fileManager, null, null, null, fileObjects).call();
 		if (isCompilationSuccessful) {
-			System.out.println("Compilation réussie");
+			System.out.println("Compilation réussie");	
+			JarUtils.create(jvsFile);
 		} else {
 			CompilationErrorHandler.handle(output);
 		}
@@ -78,13 +80,12 @@ public class JvsCompiler {
 		return head;
 	}
 
-	public static String readFile(String path) {
-		File file = new File(path);
+	public static String readFile(File file) {
 		String toReturn = null;
 		try {
 			toReturn = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
 		} catch (IOException e) {
-			Stdout.printError("Impossible d'ouvrir le fichier : " + path);
+			Stdout.printError("Impossible d'ouvrir le fichier : " + file.getAbsolutePath());
 		}
 		return toReturn;
 	}
