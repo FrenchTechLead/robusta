@@ -1,4 +1,4 @@
-# Bienvenu à Javascool-Light
+# Bienvenu à Javascool-Light [![CircleCI](https://circleci.com/gh/Meshredded/javascool-light/tree/vs-tasks-swing-terminal.svg?style=svg)](https://circleci.com/gh/Meshredded/javascool-light/tree/vs-tasks-swing-terminal)
 Ce programme s'inspire du projet [java's Cool](javascool.gforge.inria.fr) pour proposer un langage de programmation simplifié basé sur Java, conçu pour l'apprentissage des bases de la programmation.
 
 `Javascool-Light` a seulement besoin de deux dependences pour fonctionner qui sont :
