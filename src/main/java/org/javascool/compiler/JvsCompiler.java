@@ -38,7 +38,6 @@ public class JvsCompiler {
 		StringWriter output = new StringWriter();
 		boolean isCompilationSuccessful = compiler.getTask(output, fileManager, null, null, null, fileObjects).call();
 		if (isCompilationSuccessful) {
-			System.out.println("Compilation réussie");	
 			JarUtils.create(jvsFile);
 		} else {
 			CompilationErrorHandler.handle(output);

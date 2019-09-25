@@ -20,22 +20,6 @@
 				"focus": true,
 				"showReuseMessage": false
 			}
-		},
-		{
-			"label": "Exécuter",
-			"type": "shell",
-			"command": "cd .vscode && ./run-task.sh",
-			"windows": {
-				"command": "cd .vscode && run-task.bat"
-			},
-			"presentation": {
-				"clear": true,
-				"reveal": "always",
-				"panel": "shared",
-				"echo": false,
-				"focus": true,
-				"showReuseMessage": false
-			}
 		}
 	]
 }

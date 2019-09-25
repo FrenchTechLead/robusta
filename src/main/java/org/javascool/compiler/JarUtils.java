@@ -1,74 +1,39 @@
 package org.javascool.compiler;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.util.Arrays;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Date;
-import java.util.List;
 import java.util.jar.Attributes;
+import java.util.jar.JarEntry;
+import java.util.jar.JarInputStream;
 import java.util.jar.JarOutputStream;
 import java.util.jar.Manifest;
-import java.util.jar.Pack200;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.filefilter.IOFileFilter;
 
 public class JarUtils {
 	private static final File parentDirectory = new File(System.getProperty("user.dir"));
 
 	public static void create(File jvsFile) {
-		// Create Manifest File
-		File manifestFile = new File(parentDirectory.getAbsolutePath() + "/META-INF/MANIFEST.MF");
-		FileOutputStream os = null;
-		FileOutputStream os2;
-		JarOutputStream jostream;
-		FileInputStream is;
-		try {
-			os = FileUtils.openOutputStream(manifestFile);
-			getManifest("C").write(os);
-			Pack200.Packer p = Pack200.newPacker();
-			os2 = new FileOutputStream(new File(parentDirectory.getAbsolutePath() + "/out.jar"));
-			jostream = new JarOutputStream(os2);
-			IOFileFilter iof = new IOFileFilter() {
-
-				@Override
-				public boolean accept(File dir, String name) {
-					return true;
-				}
-
-				@Override
-				public boolean accept(File file) {
-					String name = file.getName();
-					List<String> blackList = Arrays.asList(new String[] { ".sh", ".bat", ".json", "D" });
-					int i = name.lastIndexOf(".");
-					if (i > 0) {
-						String extension = name.substring(i);
-						return !blackList.contains(extension);
-					} else {
-						return false;
-					}
-
-				}
-			};
-			FileUtils.iterateFilesAndDirs(parentDirectory, iof, iof).forEachRemaining((x) -> {
-				try {
-					if (x.isFile())
-						jostream.write(Files.readAllBytes(x.toPath()));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			});
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
+		Manifest mf = getManifest("C");
+		String[] jarEntries = { "a.jar", "C.class" };
+		
+		String fileName = jvsFile.getName();
+		int index = fileName.lastIndexOf('.');
+		jarCreate(jvsFile.getParent() + "/"+ fileName.substring(0, index)+ ".jar", mf, parentDirectory.getAbsolutePath(), jarEntries);
+		System.out.println("Compilation réussie");
 	}
 
+	/**
+	 * Generates manifest file.
+	 * 
+	 * @param mainClass The main class that should be executed in jar.
+	 * @return Manifest Object.
+	 */
 	@SuppressWarnings("deprecation")
 	private static Manifest getManifest(String mainClass) {
 		Manifest manifest = new Manifest();
@@ -77,6 +42,106 @@ public class JarUtils {
 		main.putValue("Created-By", "1.0 (javascool-light)");
 		main.putValue("Created-Time", new Date(System.currentTimeMillis()).toGMTString());
 		main.putValue("Main-Class", mainClass);
+		main.putValue("Class-Path", parentDirectory.getAbsolutePath() + "/a.jar");
 		return manifest;
+	}
+
+	/**
+	 * Creates a jar file from the content of a folder.
+	 *
+	 * @param jarFile    Path of the jar file (it gets deleted if existing) .
+	 * @param manifest   Manifest object of the jar.
+	 * @param srcDir     The folder containing source to be added.
+	 * @param jarEntries Files inside src dir that should be added, if null all
+	 *                   files gets added.
+	 */
+	public static void jarCreate(String jarFile, Manifest manifest, String srcDir, String[] jarEntries) {
+		try {
+			File parent = new File(jarFile).getParentFile();
+			if (parent != null) {
+				parent.mkdirs();
+			}
+			new File(jarFile).delete();
+			srcDir = new File(srcDir).getCanonicalPath();
+			JarOutputStream target = new JarOutputStream(new FileOutputStream(jarFile), manifest);
+			JarUtils.copyFileToJar(new File(srcDir), target, new File(srcDir), jarEntries);
+			target.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new RuntimeException(ex);
+		}
+	}
+
+	private static void copyFileToJar(File source, JarOutputStream target, File root, String[] jarEntries)
+			throws IOException {
+		if (jarEntries != null) {
+			boolean skip = true;
+			for (String jarEntry : jarEntries) {
+				String entry = root.toString() + File.separator + jarEntry;
+				skip &= !(entry.startsWith(source.toString()) | source.toString().startsWith(entry));
+			}
+			if (skip) {
+				return;
+			}
+		}
+		try {
+			if (source.isDirectory()) {
+				String name = source.getPath().replace(root.getAbsolutePath() + File.separator, "")
+						.replace(File.separator, "/");
+				if (!name.isEmpty() && (!source.equals(root))) {
+					if (!name.endsWith("/")) {
+						name += "/";
+					}
+					JarEntry entry = new JarEntry(name);
+					entry.setTime(source.lastModified());
+					target.putNextEntry(entry);
+					target.closeEntry();
+				}
+				for (File nestedFile : source.listFiles()) {
+					JarUtils.copyFileToJar(nestedFile, target, root, jarEntries);
+				}
+			} else {
+				JarEntry entry = new JarEntry(source.getPath().replace(root.getAbsolutePath() + File.separator, "")
+						.replace(File.separator, "/"));
+				entry.setTime(source.lastModified());
+				target.putNextEntry(entry);
+				JarUtils.copyStream(new BufferedInputStream(new FileInputStream(source)), target);
+			}
+		} catch (Throwable e) {
+			e.printStackTrace(System.out);
+			throw new IllegalStateException(e);
+		}
+	}
+
+	private static void copyStream(InputStream in, OutputStream out, DownloadListener listener, int size)
+			throws IOException {
+		InputStream i = in instanceof JarInputStream ? in : new BufferedInputStream(in, 2048);
+		OutputStream o = out instanceof JarOutputStream ? out : new BufferedOutputStream(out, 2048);
+		byte data[] = new byte[2048];
+		for (int c, l = 0; (c = i.read(data, 0, 2048)) != -1;) {
+			o.write(data, 0, c);
+			if (listener != null) {
+				listener.progressPerformed(l += c, size);
+			}
+		}
+		if (o instanceof JarOutputStream) {
+			((JarOutputStream) o).closeEntry();
+		} else {
+			o.close();
+		}
+		if (i instanceof JarInputStream) {
+			((JarInputStream) i).closeEntry();
+		} else {
+			i.close();
+		}
+	}
+
+	private static void copyStream(InputStream in, OutputStream out) throws IOException {
+		JarUtils.copyStream(in, out, null, 0);
+	}
+
+	public static interface DownloadListener {
+
+		public void progressPerformed(int currentSize, int totalSize);
 	}
 }
