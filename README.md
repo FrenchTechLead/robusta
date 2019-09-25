@@ -19,7 +19,7 @@ L'espace de travail vscode contient les scripts nécéssaires pour le support de
 - Télécharger l'espace de travail [ici](https://mecheri.altervista.org/files/javascool-light/swing-terminal-version/vscode-workspace.zip)
 - Décompresser le fichier `vscode-workspace.zip`
 - La décompression donne un dossier `vscode-workspace` (Ce dossier peut parraitre vide dans certains systèmes d'exploitations basés sur Unix mais il ne l'est pas, le dossier contient des scripts pour vscode).
-- Ouvrir vscode puis cliquer sur `file > Open...` et selectionner le dossier `vscode-workspace`.
+- Ouvrir vscode puis cliquer sur `file > Open folder...` et selectionner le dossier `vscode-workspace`.
 - La notification suivante s'affiche à l'ouverture du dossier :
 ![Screenshot 2019-09-19 at 23 57 01](https://user-images.githubusercontent.com/10856604/65284221-39bfca00-db39-11e9-9183-9f8479a92e54.png)
 - Cliquer sur `Install All` (cette action démarrera l'installation de quelques extensions vscode qui permettent la prise en charge de `javascool`).
