@@ -24,7 +24,7 @@ public class JarUtils {
 		
 		String fileName = jvsFile.getName();
 		int index = fileName.lastIndexOf('.');
-		jarCreate(jvsFile.getParent() + "/"+ fileName.substring(0, index)+ ".jar", mf, parentDirectory.getAbsolutePath(), jarEntries);
+		jarCreate(jvsFile.getParent() + File.separator + fileName.substring(0, index)+ ".jar", mf, parentDirectory.getAbsolutePath(), jarEntries);
 		System.out.println("Compilation réussie");
 	}
 
@@ -42,7 +42,7 @@ public class JarUtils {
 		main.putValue("Created-By", "1.0 (javascool-light)");
 		main.putValue("Created-Time", new Date(System.currentTimeMillis()).toGMTString());
 		main.putValue("Main-Class", mainClass);
-		main.putValue("Class-Path", parentDirectory.getAbsolutePath() + "/a.jar");
+		main.putValue("Class-Path", parentDirectory.getAbsolutePath() + File.separator +"a.jar");
 		return manifest;
 	}
 
