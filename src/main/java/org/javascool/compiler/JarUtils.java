@@ -38,7 +38,7 @@ public class JarUtils {
 	@SuppressWarnings("deprecation")
 	private static Manifest getManifest(String mainClass) {
 		String classPath = parentDirectory.getAbsolutePath() + File.separator +"a.jar";
-		if(OS.indexOf("win") > 0) {
+		if(OS.indexOf("win") >= 0) {
 			classPath = "\\" + classPath;
 		}
 		Manifest manifest = new Manifest();
