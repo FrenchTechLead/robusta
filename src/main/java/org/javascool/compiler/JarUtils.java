@@ -20,7 +20,7 @@ public class JarUtils {
 
 	public static void create(File jvsFile) {
 		Manifest mf = getManifest("C");
-		String[] jarEntries = { "a.jar", "C.class" };
+		String[] jarEntries = { "C.class" };
 		
 		String fileName = jvsFile.getName();
 		int index = fileName.lastIndexOf('.');
