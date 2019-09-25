@@ -17,6 +17,7 @@ import java.util.jar.Manifest;
 
 public class JarUtils {
 	private static final File parentDirectory = new File(System.getProperty("user.dir"));
+	private static String OS = System.getProperty("os.name").toLowerCase();
 
 	public static void create(File jvsFile) {
 		Manifest mf = getManifest("C");
@@ -36,13 +37,17 @@ public class JarUtils {
 	 */
 	@SuppressWarnings("deprecation")
 	private static Manifest getManifest(String mainClass) {
+		String classPath = parentDirectory.getAbsolutePath() + File.separator +"a.jar";
+		if(OS.indexOf("win") > 0) {
+			classPath = "\\" + classPath;
+		}
 		Manifest manifest = new Manifest();
 		Attributes main = manifest.getMainAttributes();
 		main.putValue("Manifest-Version", "1.0");
 		main.putValue("Created-By", "1.0 (javascool-light)");
 		main.putValue("Created-Time", new Date(System.currentTimeMillis()).toGMTString());
 		main.putValue("Main-Class", mainClass);
-		main.putValue("Class-Path", parentDirectory.getAbsolutePath() + File.separator +"a.jar");
+		main.putValue("Class-Path",  classPath);
 		return manifest;
 	}
 
