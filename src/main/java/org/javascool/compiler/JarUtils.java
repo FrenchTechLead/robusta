@@ -26,7 +26,7 @@ public class JarUtils {
 		String fileName = jvsFile.getName();
 		int index = fileName.lastIndexOf('.');
 		jarCreate(jvsFile.getParent() + File.separator + fileName.substring(0, index)+ ".jar", mf, parentDirectory.getAbsolutePath(), jarEntries);
-		System.out.println("Compilation réussie");
+		System.out.print("Compilation Completed Successfully");
 	}
 
 	/**

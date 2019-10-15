@@ -11,7 +11,7 @@ public class CompilationErrorHandler {
 		String errorStr = output.toString();
 		// Exception is not in jvsCode
 		if (!errorStr.startsWith("/C.java")) {
-			Stdout.printError("Erreur de copilation");
+			Stdout.printError("Compilation Error :");
 			Stdout.printError(errorStr);
 		} else {
 			Integer lineNumber = new Integer(StringUtils.substringBetween(errorStr, ":", ":"));
@@ -21,9 +21,8 @@ public class CompilationErrorHandler {
 
 	private static void printError(int lineNumber, String errorStr) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Il y'a eu une erreur lors de la compilation.\n");
-		sb.append("l'erreur se situe en ligne : " + lineNumber + "\n\n\n");
-		sb.append("------Erreur Java-----\n");
+		sb.append("Compilation Error :\n");
+		sb.append("Line number : " + lineNumber + "\n");
 		sb.append(errorStr);
 		Stdout.printError(sb.toString());
 	}

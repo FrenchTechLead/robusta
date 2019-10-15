@@ -11,7 +11,7 @@ public class Main {
 		if (args.length == 2) {
 			handleActions(args);
 		} else {
-			Stdout.printError("Erreur dans la commande.\nla syntaxe est : java -jar a.jar compile java_file_path");
+			Stdout.printError("Syntaxe error, command should be : java -jar a.jar compile java_file_path");
 		}
 
 	}
@@ -24,7 +24,7 @@ public class Main {
 			if (verifyExtention(javaFilePath)) {
 				JvsCompiler.build(javaFilePath);
 			} else {
-				Stdout.printError("Le fichier doit avoir l'extension .jvs");
+				Stdout.printError("The file should have .jvs extension");
 			}
 
 			break;
