@@ -1,7 +1,8 @@
 package org.javascool;
 
 import static org.junit.Assert.assertThat;
-import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.containsString;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
@@ -16,12 +17,13 @@ public class MainTest {
 	PrintStream ps;
 	PrintStream old;
 	
-	ByteArrayOutputStream baosErr;
-	PrintStream psErr;
-	PrintStream oldErr;
-	
 	String ERROR_MSG = "Output message error.";
-	String FILE_PATH = "vscode-workspace" + File.separator + "hello-world";
+	String FILE_PATH =
+			"src" + File.separator +
+			"test" +  File.separator +
+			"resources" +  File.separator +
+			"hello-world"
+			;
 	
     @Before
     public void beforeSetup() {
@@ -29,11 +31,6 @@ public class MainTest {
         ps = new PrintStream(baos);
         old = System.out;
         System.setOut(ps);
-        
-        baosErr = new ByteArrayOutputStream();
-        psErr = new PrintStream(baosErr);
-        oldErr = System.err;
-        System.setErr(psErr);
 
     }
     
@@ -43,28 +40,28 @@ public class MainTest {
         
         if(file.delete()) { 
             System.out.println("File deleted successfully"); 
-        } 
-        else { 
-            System.out.println("Failed to delete the file"); 
-        } 
+        }
     }
  
 
 	@Test
 	public void testMainCompilationSuccess() {
-		Main.main(new String[] {"compile",  FILE_PATH + ".jvs"});
+		String JVS_FILE = FILE_PATH + ".jvs";
+		Main.main(new String[] {"compile",  JVS_FILE});
 		System.out.flush();
 		System.setOut(old);
 		String output = baos.toString();
-		assertThat(output, equalTo("Compilation Completed Successfully"));
+		assertThat(output, containsString("Compilation Completed Successfully"));
 	}
+	
 	
 	@Test
 	public void testMainCompilationFailOnFileName() {
 		Main.main(new String[] {"compile",  FILE_PATH + ".toto"});
-		System.err.flush();
-		System.setErr(oldErr);
-		String output = baosErr.toString();
-		assertThat(output, equalTo("The file should have .jvs extension\n"));
+		System.out.flush();
+		System.setOut(old);
+		String output = baos.toString();
+		assertThat(output, containsString("The file should have .jvs extension"));
 	}
+	
 }

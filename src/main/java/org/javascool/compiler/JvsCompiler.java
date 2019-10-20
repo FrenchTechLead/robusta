@@ -24,29 +24,34 @@ public class JvsCompiler {
 
 		File jvsFile = new File(jvsFilePath);
 		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-		StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);
+		if(compiler == null) {
+			Stdout.printError("No java compiler has been found, please ensure you are using a JDK and jdk_home env variable is set.");
+		}else {
+			StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);
 
-		try {
-			fileManager.setLocation(StandardLocation.CLASS_OUTPUT, Arrays.asList(parentDirectory));
-		} catch (IOException e) {
-			Stdout.printError(e.getMessage());
+			try {
+				fileManager.setLocation(StandardLocation.CLASS_OUTPUT, Arrays.asList(parentDirectory));
+			} catch (IOException e) {
+				Stdout.printError(e.getMessage());
+			}
+			String jvsCode = readFile(jvsFile);
+			String javaCode = translate(jvsCode);
+			JavaSourceFromString jsfs = new JavaSourceFromString("C", javaCode);
+			Iterable<? extends JavaFileObject> fileObjects = Arrays.asList(jsfs);
+			StringWriter output = new StringWriter();
+			boolean isCompilationSuccessful = compiler.getTask(output, fileManager, null, null, null, fileObjects).call();
+			if (isCompilationSuccessful) {
+				JarUtils.create(jvsFile);
+			} else {
+				CompilationErrorHandler.handle(output, jvsFilePath);
+			}
+			try {
+				fileManager.close();
+			} catch (IOException e) {
+				Stdout.printError(e.getMessage());
+			}
 		}
-		String jvsCode = readFile(jvsFile);
-		String javaCode = translate(jvsCode);
-		JavaSourceFromString jsfs = new JavaSourceFromString("C", javaCode);
-		Iterable<? extends JavaFileObject> fileObjects = Arrays.asList(jsfs);
-		StringWriter output = new StringWriter();
-		boolean isCompilationSuccessful = compiler.getTask(output, fileManager, null, null, null, fileObjects).call();
-		if (isCompilationSuccessful) {
-			JarUtils.create(jvsFile);
-		} else {
-			CompilationErrorHandler.handle(output);
-		}
-		try {
-			fileManager.close();
-		} catch (IOException e) {
-			Stdout.printError(e.getMessage());
-		}
+		
 	}
 
 	private static String translate(String jvsCode) {

@@ -11,9 +11,8 @@ public class Main {
 		if (args.length == 2) {
 			handleActions(args);
 		} else {
-			Stdout.printError("Syntaxe error, command should be : java -jar a.jar compile java_file_path");
+			Stdout.printError("Syntaxe error, command should be : java -jar javascool-light.jar compile java_file_path");
 		}
-
 	}
 
 	private static void handleActions(String[] args) {
@@ -29,6 +28,7 @@ public class Main {
 
 			break;
 		}
+		
 	}
 
 

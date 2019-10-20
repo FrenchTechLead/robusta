@@ -2,29 +2,29 @@ package org.javascool.compiler;
 
 import java.io.StringWriter;
 
-import org.apache.commons.lang3.StringUtils;
 import org.javascool.macros.Stdout;
 
 public class CompilationErrorHandler {
-	public static void handle(StringWriter output) {
+	public static void handle(StringWriter output, String jvsFilePath) {
 
 		String errorStr = output.toString();
-		// Exception is not in jvsCode
-		if (!errorStr.startsWith("/C.java")) {
-			Stdout.printError("Compilation Error :");
-			Stdout.printError(errorStr);
-		} else {
-			Integer lineNumber = new Integer(StringUtils.substringBetween(errorStr, ":", ":"));
-			printError(lineNumber, errorStr);
+		if (errorStr.contains("C.java")) {
+			errorStr = putJvsFileInErrorStack(errorStr, jvsFilePath);
 		}
+		printError(errorStr);
 	}
 
-	private static void printError(int lineNumber, String errorStr) {
+	private static void printError(String errorStr) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Compilation Error :\n");
-		sb.append("Line number : " + lineNumber + "\n");
+		sb.append("jvs_error:");
 		sb.append(errorStr);
 		Stdout.printError(sb.toString());
+	}
+	
+	private static String putJvsFileInErrorStack(String errorStr, String jvsFilePath) {
+		int i = errorStr.indexOf(":");
+		
+		return jvsFilePath + errorStr.substring(i);
 	}
 
 }

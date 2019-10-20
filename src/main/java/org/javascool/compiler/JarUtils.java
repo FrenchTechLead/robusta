@@ -1,5 +1,6 @@
 package org.javascool.compiler;
 
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -15,9 +16,12 @@ import java.util.jar.JarInputStream;
 import java.util.jar.JarOutputStream;
 import java.util.jar.Manifest;
 
+
 public class JarUtils {
 	private static final File parentDirectory = new File(System.getProperty("user.dir"));
 	private static String OS = System.getProperty("os.name").toLowerCase();
+
+
 
 	public static void create(File jvsFile) {
 		Manifest mf = getManifest("C");
@@ -26,7 +30,9 @@ public class JarUtils {
 		String fileName = jvsFile.getName();
 		int index = fileName.lastIndexOf('.');
 		jarCreate(jvsFile.getParent() + File.separator + fileName.substring(0, index)+ ".jar", mf, parentDirectory.getAbsolutePath(), jarEntries);
-		System.out.print("Compilation Completed Successfully");
+		File toDelete = new File("C.class");
+		toDelete.delete();
+		System.out.println("Compilation Completed Successfully");
 	}
 
 	/**
@@ -37,7 +43,7 @@ public class JarUtils {
 	 */
 	@SuppressWarnings("deprecation")
 	private static Manifest getManifest(String mainClass) {
-		String classPath = parentDirectory.getAbsolutePath() + File.separator +"a.jar";
+		String classPath = System.getProperty("java.class.path");
 		if(OS.indexOf("win") >= 0) {
 			classPath = "\\" + classPath;
 		}

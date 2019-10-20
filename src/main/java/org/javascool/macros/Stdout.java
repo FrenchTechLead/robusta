@@ -16,7 +16,8 @@ public class Stdout {
 	}
 
 	public static void printError(String str) {
-		System.err.println(str);
+		System.out.println(str);
 	}
 
 }
+

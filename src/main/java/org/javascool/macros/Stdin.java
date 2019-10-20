@@ -61,6 +61,6 @@ public class Stdin {
 	}
 
 	private static String getResult(String text) {
-		return JOptionPane.showInputDialog(text);
+		return JOptionPane.showInputDialog(Console.getInstance(), text);
 	}
 }

@@ -1,19 +1,8 @@
-# Java Maven CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-java/ for more details
-#
 version: 2
 jobs:
   build:
     docker:
-      # specify the version you desire here
       - image: circleci/openjdk:8-jdk
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
-
     working_directory: ~/repo
 
     environment:
@@ -22,8 +11,13 @@ jobs:
 
     steps:
       - checkout
+      
+      - run:
+          name: Download osstool
+          command: |
+            curl -o oss http://gosspublic.alicdn.com/ossutil/1.6.6/ossutil64
+            chmod 755 oss
 
-      # Download and cache dependencies
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "pom.xml" }}
@@ -44,12 +38,9 @@ jobs:
       - run: 
           name: packaging jar with dependencies
           command: mvn clean compile assembly:single
-      - run:
-          name: zipping vscode-workspace 
-          command: zip -r vscode-workspace.zip vscode-workspace;  
             
       - run:
-          name: Distribute workspace
+          name: Distribute jar file
           command: |
-            curl --insecure --user ${ssh_username}:${ssh_password} -T vscode-workspace.zip ftp://ftp.mecheri.altervista.org:/files/javascool-light/swing-terminal-version/
-            echo "Artifact available at : https://mecheri.altervista.org/files/javascool-light/swing-terminal-version/vscode-workspace.zip"
+            ./oss cp target/javascool-light.jar oss://javascool/${CIRCLE_BRANCH}/javascool-light.jar -e oss-us-east-1.aliyuncs.com -i ${oss_access_key_id} -k ${oss_access_key_secret} -f
+            echo "Artifact available at : https://javascool.oss-us-east-1.aliyuncs.com/${CIRCLE_BRANCH}/javascool-light.jar"
