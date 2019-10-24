@@ -25,7 +25,18 @@ public class JvsCompiler {
 		File jvsFile = new File(jvsFilePath);
 		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 		if(compiler == null) {
-			Stdout.printError("No java compiler has been found, please ensure you are using a JDK and jdk_home env variable is set.");
+			String currentJRE = System.getProperty("java.home");
+			StringBuilder sb = new StringBuilder();
+			sb.append("ERROR:\n");
+			sb.append("The current process has been executed by the following JRE:\n");
+			sb.append("> " + currentJRE + "\n");
+			sb.append("Please make sure to run the program by a JDK and not a JRE.\n");
+			sb.append("You should set the JAVA_HOME environnement variable to a valid JDK location.\n");
+			sb.append("The following commands may help you to debug :\n");
+			sb.append("> where javac (for windows) > which javac (for linux and mac)\n");
+			sb.append("> where java  (for windows) > which java  (for linux and mac)\n");
+			sb.append("> java -verbose\n");
+			Stdout.printError(sb.toString());
 		}else {
 			StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);
 
@@ -89,7 +100,7 @@ public class JvsCompiler {
 		try {
 			toReturn = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
 		} catch (IOException e) {
-			Stdout.printError("Impossible d'ouvrir le fichier : " + file.getAbsolutePath());
+			Stdout.printError("Can not find file : " + file.getAbsolutePath());
 		}
 		return toReturn;
 	}
