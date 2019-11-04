@@ -1,4 +1,4 @@
-package org.javascool.macros;
+package org.robusta.macros;
 
 public class Stdout {
 

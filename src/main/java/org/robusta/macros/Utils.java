@@ -1,4 +1,4 @@
-package org.javascool.macros;
+package org.robusta.macros;
 
 public class Utils {
 	public static void sleep(int delay) {

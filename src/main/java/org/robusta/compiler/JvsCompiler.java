@@ -1,10 +1,10 @@
-package org.javascool.compiler;
+package org.robusta.compiler;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.net.URI;
-import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.Arrays;
 
 import javax.tools.JavaCompiler;
@@ -14,8 +14,7 @@ import javax.tools.StandardJavaFileManager;
 import javax.tools.StandardLocation;
 import javax.tools.ToolProvider;
 
-import org.apache.commons.io.FileUtils;
-import org.javascool.macros.Stdout;
+import org.robusta.macros.Stdout;
 
 public class JvsCompiler {
 	private static final File parentDirectory = new File(System.getProperty("user.dir"));
@@ -37,7 +36,7 @@ public class JvsCompiler {
 			sb.append("> where java  (for windows) > which java  (for linux and mac)\n");
 			sb.append("> java -verbose\n");
 			Stdout.printError(sb.toString());
-		}else {
+		} else {
 			StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);
 
 			try {
@@ -66,13 +65,9 @@ public class JvsCompiler {
 	}
 
 	private static String translate(String jvsCode) {
-
 		String text = jvsCode.replace((char) 160, ' ');
-
 		StringBuilder body = new StringBuilder();
-
 		body.append(text);
-
 		String finalBody = body.toString();
 		String head = getHead().toString();
 		return head + finalBody + "}";
@@ -82,11 +77,11 @@ public class JvsCompiler {
 		final String CLASS_NAME = "C";
 		StringBuilder head = new StringBuilder();
 		head.append("import static java.lang.Math.*;");
-		head.append("import static org.javascool.macros.Stdin.*;");
-		head.append("import static org.javascool.macros.Stdout.*;");
-		head.append("import static org.javascool.macros.Utils.*;");
-		head.append("import org.javascool.macros.Console;");
-		head.append("import static org.javascool.compiler.RunTimeErrorHandler.*;");
+		head.append("import static org.robusta.macros.Stdin.*;");
+		head.append("import static org.robusta.macros.Stdout.*;");
+		head.append("import static org.robusta.macros.Utils.*;");
+		head.append("import static org.robusta.compiler.RunTimeErrorHandler.*;");
+		head.append("import org.robusta.macros.Console;");
 		head.append("public class " + CLASS_NAME + "{");
 		head.append("public static void main(String[] args) {");
 		head.append("Console.getInstance();");
@@ -98,7 +93,7 @@ public class JvsCompiler {
 	public static String readFile(File file) {
 		String toReturn = null;
 		try {
-			toReturn = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
+			toReturn = new String(Files.readAllBytes(file.toPath()));
 		} catch (IOException e) {
 			Stdout.printError("Can not find file : " + file.getAbsolutePath());
 		}

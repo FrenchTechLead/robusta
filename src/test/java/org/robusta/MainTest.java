@@ -1,4 +1,4 @@
-package org.javascool;
+package org.robusta;
 
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.containsString;
@@ -10,6 +10,7 @@ import java.io.PrintStream;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.robusta.Main;
 
 public class MainTest {
 	
@@ -27,6 +28,7 @@ public class MainTest {
 	
     @Before
     public void beforeSetup() {
+    	System.setProperty("java.class.path", "target/robusta.jar");
         baos = new ByteArrayOutputStream();
         ps = new PrintStream(baos);
         old = System.out;

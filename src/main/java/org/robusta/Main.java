@@ -1,17 +1,18 @@
-package org.javascool;
+package org.robusta;
 
-import org.javascool.compiler.JvsCompiler;
-import org.javascool.macros.Stdout;
+import org.robusta.compiler.JvsCompiler;
+import org.robusta.macros.Stdout;
 
 public class Main {
 
 	private final static String COMPILE_GOAL = "compile";
-
+	public final static long COMPILATION_START_TIME = System.currentTimeMillis();
+	
 	public static void main(String[] args) {
 		if (args.length == 2) {
 			handleActions(args);
 		} else {
-			Stdout.printError("Syntaxe error, command should be : java -jar javascool-light.jar compile java_file_path");
+			Stdout.printError("Syntaxe error, command should be : java -jar robusta.jar compile file_path");
 		}
 	}
 

@@ -1,6 +1,6 @@
-package org.javascool.compiler;
+package org.robusta.compiler;
 
-import org.javascool.macros.Stdout;
+import org.robusta.macros.Stdout;
 
 public class RunTimeErrorHandler {
 	

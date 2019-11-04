@@ -4,30 +4,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>meshredded</groupId>
-	<artifactId>javascool-light</artifactId>
+	<artifactId>robusta</artifactId>
 	<version>1.0.0</version>
-	<name>javascool-light</name>
-	<description>This is a light version of javascool project.</description>
+	<name>robusta</name>
+	<description>Robusta is a basic programming language based on Java, it was designed for learning the basics of software programming without the hassle of the advanced principles and the complex configurations.</description>
 
 	<dependencies>
-
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.6</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.9</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.googlecode.lanterna</groupId>
-			<artifactId>lanterna</artifactId>
-			<version>3.0.1</version>
-		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
@@ -54,14 +36,14 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>org.javascool.Main</mainClass>
+							<mainClass>org.robusta.Main</mainClass>
 							<addClasspath>true</addClasspath>
 						</manifest>
 					</archive>
 					<descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>
-					<finalName>javascool-light</finalName>
+					<finalName>robusta</finalName>
 					<appendAssemblyId>false</appendAssemblyId>
 				</configuration>
 				<executions>

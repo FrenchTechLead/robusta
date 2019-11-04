@@ -1,8 +1,8 @@
-package org.javascool.compiler;
+package org.robusta.compiler;
 
 import java.io.StringWriter;
 
-import org.javascool.macros.Stdout;
+import org.robusta.macros.Stdout;
 
 public class CompilationErrorHandler {
 	public static void handle(StringWriter output, String jvsFilePath) {
