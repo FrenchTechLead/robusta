@@ -1,5 +1,8 @@
-# Welcome to Robusta [![CircleCI](https://circleci.com/gh/Meshredded/javascool-light/tree/vs-tasks-swing-terminal.svg?style=svg)](https://circleci.com/gh/Meshredded/javascool-light/tree/vs-tasks-swing-terminal)
-This project is mostly inspired by [java's Cool](javascool.gforge.inria.fr) which is a basic programming language based on JAVA.
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![CircleCI](https://circleci.com/gh/Meshredded/robusta.svg?style=svg)](https://circleci.com/gh/Meshredded/robusta)
+# Welcome to Robusta
+Robusta is a basic programming language based on java, it was designed for learning the basics of software programming without the hasle of the advanced principles and hard configurations. 
 
 Robusta needs the two following dependecies in order to work properly:
  - [JDK > = 8](http://openjdk.java.net/install/)
@@ -11,7 +14,7 @@ Make sure that you have a recent jdk version installed in your computer :
 javac -version
 javac 11.0.2
 ```
- :star: The version here is  `11.0.2`  :thumbsup:
+ :star: The version here is  `11.0.2` which is greater than v8 :thumbsup:
 
 ## 2 - Download robusta.jar :
 - Download the latest version of [robusta.jar](https://robusta.oss-us-east-1.aliyuncs.com/vs-tasks-swing-terminal/robusta.jar)
@@ -27,7 +30,7 @@ javac 11.0.2
 ![](https://user-images.githubusercontent.com/10856604/67443426-1dfe8680-f605-11e9-864d-c985c46ea50d.gif)
 
 ## Contibuting :
-
+We welcome all kinds of contributions, please feel free to contribute [here.](https://github.com/Meshredded/robusta/blob/vs-tasks-swing-terminal/CONTRIBUTING.md)
 
 ## Licence :
 MIT

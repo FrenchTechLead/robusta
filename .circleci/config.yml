@@ -42,5 +42,5 @@ jobs:
       - run:
           name: Distribute jar file
           command: |
-            ./oss cp target/javascool-light.jar oss://javascool/${CIRCLE_BRANCH}/javascool-light.jar -e oss-us-east-1.aliyuncs.com -i ${oss_access_key_id} -k ${oss_access_key_secret} -f
-            echo "Artifact available at : https://javascool.oss-us-east-1.aliyuncs.com/${CIRCLE_BRANCH}/javascool-light.jar"
+            ./oss cp target/robusta.jar oss://robusta/${CIRCLE_BRANCH}/robusta.jar -e oss-us-east-1.aliyuncs.com -i ${oss_access_key_id} -k ${oss_access_key_secret} -f
+            echo "Artifact available at : https://robusta.oss-us-east-1.aliyuncs.com/${CIRCLE_BRANCH}/robusta.jar"
