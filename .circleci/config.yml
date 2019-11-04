@@ -32,12 +32,12 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
       - run: 
-          name: Unit tests
-          command: mvn test
-          
-      - run: 
           name: packaging jar with dependencies
           command: mvn clean compile assembly:single
+
+      - run: 
+          name: Unit tests
+          command: mvn test
             
       - run:
           name: Distribute jar file
