@@ -27,7 +27,7 @@ javac 11.0.2
 - Set the absolute path to the robusta.jar archive in vscode settings (VSCODE > Settings > Extensions > Robusta).
 
 ## :star: Happy programming :star:
-![](https://user-images.githubusercontent.com/10856604/67443426-1dfe8680-f605-11e9-864d-c985c46ea50d.gif)
+![](https://user-images.githubusercontent.com/10856604/68250722-cf4be600-0021-11ea-97f9-4987cc6d4c14.gif)
 
 ## Contibuting :
 We welcome all kinds of contributions, please feel free to contribute [here.](https://github.com/Meshredded/robusta/blob/vs-tasks-swing-terminal/CONTRIBUTING.md)
