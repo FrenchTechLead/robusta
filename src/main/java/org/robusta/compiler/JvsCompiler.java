@@ -78,6 +78,7 @@ public class JvsCompiler {
 		head.append("import static org.robusta.macros.Stdin.*;");
 		head.append("import static org.robusta.macros.Stdout.*;");
 		head.append("import static org.robusta.macros.Utils.*;");
+		head.append("import static org.robusta.macros.IO.*;");
 		head.append("import static org.robusta.compiler.RunTimeErrorHandler.*;");
 		head.append("import org.robusta.macros.Console;");
 		head.append("public class " + CLASS_NAME + "{");

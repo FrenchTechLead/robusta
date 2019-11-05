@@ -21,17 +21,23 @@ public class JarUtils {
 
 	public static void create(File jvsFile) {
 		try {
-			File C_CLASS = new File("C.class");
 			String classPath = System.getProperty("java.class.path");
 			String fileName = jvsFile.getName();
 			int index = fileName.lastIndexOf('.');
 			String generatedJarPath = jvsFile.getParent() + File.separator + fileName.substring(0, index)+ ".jar";
 			Manifest manifest = getManifest();
 			JarOutputStream jarOS = new JarOutputStream(new FileOutputStream(new File(generatedJarPath)), manifest);
-			byte[] classBytes = Files.readAllBytes(C_CLASS.toPath());
-			jarOS.putNextEntry(new JarEntry("C.class"));
-			jarOS.write(classBytes);
-			jarOS.closeEntry();
+			
+			File dir = new File(".");
+			File [] classFiles = dir.listFiles((File dirr, String name)-> name.endsWith(".class"));
+			for (File classFile : classFiles) {
+				byte[] classBytes = Files.readAllBytes(classFile.toPath());
+				jarOS.putNextEntry(new JarEntry(classFile.getName()));
+				jarOS.write(classBytes);
+				jarOS.closeEntry();
+			}
+
+			
 			JarFile jf = new JarFile(classPath);
 			Enumeration<JarEntry> e = jf.entries();
 			while(e.hasMoreElements()) {
@@ -48,7 +54,9 @@ public class JarUtils {
 			}
 			jf.close();
 			jarOS.close();
-			C_CLASS.delete();
+			for (File classFile : classFiles) {
+				classFile.delete();
+			}
 			long COMPILATION_END_TIME = System.currentTimeMillis();
 			System.out.println(GREEN_COLOR + "Compilation Completed Successfully in (" + ((COMPILATION_END_TIME - Main.COMPILATION_START_TIME)) + " milliseconds)." + RESET_COLOR);
 		} catch (Exception e) {

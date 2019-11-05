@@ -5,6 +5,10 @@ import javax.swing.JOptionPane;
 public class Stdin {
 
 	static final String DEFAULT_READER_TEXT = "Please enter a (an) ";
+	
+	private static String getResult(String text) {
+		return JOptionPane.showInputDialog(Console.getInstance(), text);
+	}
 
 	/* ----- String Readers ----- */
 	public static String readString(String text) {
@@ -28,9 +32,17 @@ public class Stdin {
 	public static Integer readInteger(String text) {
 		return new Integer(getResult(text));
 	}
+	
+	public static Integer readInt(String text) {
+		return readInteger(text);
+	}
 
 	public static Integer readInteger() {
 		return new Integer(getResult(DEFAULT_READER_TEXT + "(Integer)"));
+	}
+	
+	public static Integer readInt() {
+		return readInteger();
 	}
 
 	/* ----- Long Readers ----- */
@@ -60,7 +72,23 @@ public class Stdin {
 		return new Boolean(getResult(DEFAULT_READER_TEXT + "boolean value (true or false)"));
 	}
 
-	private static String getResult(String text) {
-		return JOptionPane.showInputDialog(Console.getInstance(), text);
+	/* ----- Char Readers ----- */
+	public static char readChar(String text) {
+		String x = getResult(text);
+		return x.length() > 0 ? x.charAt(0) : '\0';
 	}
+	
+	public static char readCharacter(String text) {
+		return readChar(text);
+	}
+
+	public static char readChar() {
+		String x = getResult(DEFAULT_READER_TEXT + "character (one letter)");
+		return x.length() > 0 ? x.charAt(0) : '\0';
+	}
+	
+	public static char readCharacter() {
+		return readChar();
+	}
+
 }
