@@ -1,7 +1,6 @@
 package org.robusta;
 
 import org.robusta.compiler.JvsCompiler;
-import org.robusta.macros.Stdout;
 
 public class Main {
 
@@ -12,7 +11,7 @@ public class Main {
 		if (args.length == 2) {
 			handleActions(args);
 		} else {
-			Stdout.printError("Syntaxe error, command should be : java -jar robusta.jar compile file_path");
+			System.out.println("Syntaxe error, command should be : java -jar robusta.jar compile file_path");
 		}
 	}
 
@@ -24,7 +23,7 @@ public class Main {
 			if (verifyExtention(javaFilePath)) {
 				JvsCompiler.build(javaFilePath);
 			} else {
-				Stdout.printError("The file should have .jvs extension");
+				System.out.println("The file should have .jvs extension");
 			}
 
 			break;

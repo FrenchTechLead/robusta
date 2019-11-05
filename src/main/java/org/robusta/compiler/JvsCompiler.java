@@ -14,8 +14,6 @@ import javax.tools.StandardJavaFileManager;
 import javax.tools.StandardLocation;
 import javax.tools.ToolProvider;
 
-import org.robusta.macros.Stdout;
-
 public class JvsCompiler {
 	private static final File parentDirectory = new File(System.getProperty("user.dir"));
 	
@@ -35,14 +33,14 @@ public class JvsCompiler {
 			sb.append("> where javac (for windows) > which javac (for linux and mac)\n");
 			sb.append("> where java  (for windows) > which java  (for linux and mac)\n");
 			sb.append("> java -verbose\n");
-			Stdout.printError(sb.toString());
+			System.out.println(sb.toString());
 		} else {
 			StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);
 
 			try {
 				fileManager.setLocation(StandardLocation.CLASS_OUTPUT, Arrays.asList(parentDirectory));
 			} catch (IOException e) {
-				Stdout.printError(e.getMessage());
+				System.out.println(e.getMessage());
 			}
 			String jvsCode = readFile(jvsFile);
 			String javaCode = translate(jvsCode);
@@ -58,7 +56,7 @@ public class JvsCompiler {
 			try {
 				fileManager.close();
 			} catch (IOException e) {
-				Stdout.printError(e.getMessage());
+				System.out.println(e.getMessage());
 			}
 		}
 		
@@ -95,7 +93,7 @@ public class JvsCompiler {
 		try {
 			toReturn = new String(Files.readAllBytes(file.toPath()));
 		} catch (IOException e) {
-			Stdout.printError("Can not find file : " + file.getAbsolutePath());
+			System.out.println("Can not find file : " + file.getAbsolutePath());
 		}
 		return toReturn;
 	}

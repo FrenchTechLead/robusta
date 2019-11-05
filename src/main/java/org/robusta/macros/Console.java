@@ -22,7 +22,7 @@ public class Console extends JFrame {
 	private static final long serialVersionUID = 6543132165763L;
 	
 	private Console() {
-		super("Javascool light");
+		super("Robusta");
 		WindowListener l = new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);

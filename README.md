@@ -24,7 +24,7 @@ javac 11.0.2
 ## 4 - Download the robusta extension for vscode :
 - Download the robusta [vscode extension](https://marketplace.visualstudio.com/items?itemName=meshredded.robusta&ssr=false#overview)
 ## 5 - VSCODE Settings :
-- Set the absolute path to the javascool-light.jar archive in vscode settings (VSCODE > Settings > Extensions > Robusta).
+- Set the absolute path to the robusta.jar archive in vscode settings (VSCODE > Settings > Extensions > Robusta).
 
 ## :star: Happy programming :star:
 ![](https://user-images.githubusercontent.com/10856604/67443426-1dfe8680-f605-11e9-864d-c985c46ea50d.gif)

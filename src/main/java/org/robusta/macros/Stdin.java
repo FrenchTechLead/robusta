@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 
 public class Stdin {
 
-	static final String DEFAULT_READER_TEXT = "Veuillez entrer un(e) ";
+	static final String DEFAULT_READER_TEXT = "Please enter a (an) ";
 
 	/* ----- String Readers ----- */
 	public static String readString(String text) {
@@ -12,7 +12,7 @@ public class Stdin {
 	}
 
 	public static String readString() {
-		return getResult(DEFAULT_READER_TEXT + "chaine de caractères");
+		return getResult(DEFAULT_READER_TEXT + "string");
 	}
 
 	/* ----- Double Readers ----- */
@@ -21,7 +21,7 @@ public class Stdin {
 	}
 
 	public static Double readDouble() {
-		return new Double(getResult(DEFAULT_READER_TEXT + "nombre décimal (Double)"));
+		return new Double(getResult(DEFAULT_READER_TEXT + "decimal value (Double)"));
 	}
 
 	/* ----- Integer Readers ----- */
@@ -30,7 +30,7 @@ public class Stdin {
 	}
 
 	public static Integer readInteger() {
-		return new Integer(getResult(DEFAULT_READER_TEXT + "nombre entier (Integer)"));
+		return new Integer(getResult(DEFAULT_READER_TEXT + "(Integer)"));
 	}
 
 	/* ----- Long Readers ----- */
@@ -39,7 +39,7 @@ public class Stdin {
 	}
 
 	public static Long readLong() {
-		return new Long(getResult(DEFAULT_READER_TEXT + "nombre décimal (Long)"));
+		return new Long(getResult(DEFAULT_READER_TEXT + "decimal value  (Long)"));
 	}
 
 	/* ----- Float Readers ----- */
@@ -48,7 +48,7 @@ public class Stdin {
 	}
 
 	public static Float readFloat() {
-		return new Float(getResult(DEFAULT_READER_TEXT + "nombre décimal (Float)"));
+		return new Float(getResult(DEFAULT_READER_TEXT + "decimal value  (Float)"));
 	}
 
 	/* ----- Boolean Readers ----- */
@@ -57,7 +57,7 @@ public class Stdin {
 	}
 
 	public static Boolean readBoolean() {
-		return new Boolean(getResult(DEFAULT_READER_TEXT + "valeur booléenne (true ou false)"));
+		return new Boolean(getResult(DEFAULT_READER_TEXT + "boolean value (true or false)"));
 	}
 
 	private static String getResult(String text) {

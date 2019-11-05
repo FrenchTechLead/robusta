@@ -15,9 +15,5 @@ public class Stdout {
 		Console.getOutput().setText("");
 	}
 
-	public static void printError(String str) {
-		System.out.println(str);
-	}
-
 }
 
