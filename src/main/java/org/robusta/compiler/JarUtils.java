@@ -16,8 +16,6 @@ import org.robusta.Main;
 
 public class JarUtils {
 	
-	private final static String GREEN_COLOR = "\033[1;32m";
-	private final static String RESET_COLOR = "\033[0m";
 
 	public static void create(File jvsFile) {
 		try {
@@ -58,7 +56,7 @@ public class JarUtils {
 				classFile.delete();
 			}
 			long COMPILATION_END_TIME = System.currentTimeMillis();
-			System.out.println(GREEN_COLOR + "Compilation Completed Successfully in (" + ((COMPILATION_END_TIME - Main.COMPILATION_START_TIME)) + " milliseconds)." + RESET_COLOR);
+			System.out.println("Compilation Completed Successfully in (" + ((COMPILATION_END_TIME - Main.COMPILATION_START_TIME)) + " milliseconds).");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

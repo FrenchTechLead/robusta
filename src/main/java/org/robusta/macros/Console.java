@@ -2,13 +2,12 @@ package org.robusta.macros;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -19,16 +18,31 @@ public class Console extends JFrame {
 
 	private static Console CONSOLE_INSTANCE;
 	private static volatile JTextArea output = new JTextArea();
+	private static volatile JScrollPane scrollFrame;
 	private static final long serialVersionUID = 6543132165763L;
+	
+	public static void main(String [] s) {
+		new Console();
+	}
 	
 	private Console() {
 		super("Robusta");
-		WindowListener l = new WindowAdapter() {
+		JFrame frame = this;
+		this.addComponentListener(new ComponentAdapter() {
+		    public void componentResized(ComponentEvent componentEvent) {
+		        if(scrollFrame != null ) {
+		        	int width = frame.getWidth();
+			        int height = frame.getHeight();
+		        	scrollFrame.setSize(new Dimension(width, height));
+		        }
+		    }
+		});
+
+		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
-		};
-		addWindowListener(l);
+		});
 		this.start();
 	}
 	
@@ -46,12 +60,12 @@ public class Console extends JFrame {
 		output.setBackground(Color.BLACK);
 		output.setForeground(Color.ORANGE);
 		output.setFont(new Font("monospaced", Font.PLAIN, 15));
-		JScrollPane scroll = new JScrollPane (output, 
+		scrollFrame = new JScrollPane (output, 
 				   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		JPanel p = new JPanel();
 		p.setPreferredSize(new Dimension(800, 600));
 		p.setLayout(new BorderLayout());
-		p.add(scroll, BorderLayout.CENTER);
+		p.add(scrollFrame, BorderLayout.CENTER);
 		return p;
 	}
 	
@@ -62,12 +76,10 @@ public class Console extends JFrame {
 	private void start() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(800, 600);
-		Container contentPane = getContentPane();
-		contentPane.setLayout(new BorderLayout());
-		JPanel secondPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		secondPanel.add(Console.getConsole());
-		contentPane.add(secondPanel, BorderLayout.CENTER);
+		getContentPane().add(Console.getConsole());
 		this.pack();
 		this.setVisible(true);
 	}
+		
+	
 }

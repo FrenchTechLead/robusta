@@ -12,6 +12,7 @@ public class Stdout {
 	
 	public static void println() {
 		Console.getOutput().append("\n");
+
 	}
 
 	public static void clear() {
