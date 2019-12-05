@@ -7,7 +7,7 @@ public class Stdin {
 	static final String DEFAULT_READER_TEXT = "Please enter a (an) ";
 	
 	private static String getResult(String text) {
-		return JOptionPane.showInputDialog(Console.getInstance(), text);
+		return JOptionPane.showInputDialog(text);
 	}
 
 	/* ----- String Readers ----- */
