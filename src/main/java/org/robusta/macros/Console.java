@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -27,16 +25,6 @@ public class Console extends JFrame {
 	
 	private Console() {
 		super("Robusta");
-		JFrame frame = this;
-		this.addComponentListener(new ComponentAdapter() {
-		    public void componentResized(ComponentEvent componentEvent) {
-		        if(scrollFrame != null ) {
-		        	int width = frame.getWidth();
-			        int height = frame.getHeight();
-		        	scrollFrame.setSize(new Dimension(width, height));
-		        }
-		    }
-		});
 
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -63,7 +51,7 @@ public class Console extends JFrame {
 		scrollFrame = new JScrollPane (output, 
 				   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		JPanel p = new JPanel();
-		p.setPreferredSize(new Dimension(800, 600));
+		p.setPreferredSize(new Dimension(780, 600));
 		p.setLayout(new BorderLayout());
 		p.add(scrollFrame, BorderLayout.CENTER);
 		return p;
@@ -79,6 +67,7 @@ public class Console extends JFrame {
 		getContentPane().add(Console.getConsole());
 		this.pack();
 		this.setVisible(true);
+		this.setResizable(false);
 	}
 		
 	
