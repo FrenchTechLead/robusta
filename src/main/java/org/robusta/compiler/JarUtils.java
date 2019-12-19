@@ -41,13 +41,18 @@ public class JarUtils {
 			while(e.hasMoreElements()) {
 				JarEntry je = e.nextElement();
 				String entryName = je.getName();
-				if(entryName.endsWith(".class")) {
+				if(entryName.endsWith(".class") && entryName.startsWith("org/robusta")) {
 					InputStream is = jf.getInputStream(je);
 					byte [] bytes = new byte [is.available()];
-					is.read(bytes);
-					jarOS.putNextEntry(je);
-					jarOS.write(bytes);
-					jarOS.closeEntry();
+					try {
+						is.read(bytes);
+						jarOS.putNextEntry(je);
+						jarOS.write(bytes);
+						jarOS.closeEntry();
+					} catch(Exception re) {
+						System.out.println(entryName);
+					}
+					
 				}
 			}
 			jf.close();
