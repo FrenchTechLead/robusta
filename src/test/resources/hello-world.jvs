@@ -1,4 +1,6 @@
 void main(){
+
+String i = readString("");
     println("hello world");
     println("hello world");
 
