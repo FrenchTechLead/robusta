@@ -64,7 +64,7 @@ public class Console extends JFrame {
 	
 	private void start() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setAlwaysOnTop(true);
+		this.setAlwaysOnTop(false);
 		this.setSize(800, 600);
 		getContentPane().add(Console.getConsole());
 		this.pack();
