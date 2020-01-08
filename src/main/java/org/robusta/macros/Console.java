@@ -19,11 +19,6 @@ public class Console extends JFrame {
 	private static volatile JScrollPane scrollFrame;
 	private static final long serialVersionUID = 6543132165763L;
 	
-	public static void main(String [] s) {
-		new Console();
-		Integer i = Stdin.readInteger();
-	}
-	
 	private Console() {
 		super("Robusta");
 

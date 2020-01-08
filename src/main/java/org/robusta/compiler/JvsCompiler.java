@@ -16,6 +16,7 @@ import javax.tools.ToolProvider;
 
 public class JvsCompiler {
 	private static final File parentDirectory = new File(System.getProperty("user.dir"));
+	private static final String CLASS_NAME = "C";
 	
 	public static void build(String jvsFilePath) {
 
@@ -44,7 +45,7 @@ public class JvsCompiler {
 			}
 			String jvsCode = readFile(jvsFile);
 			String javaCode = translate(jvsCode);
-			JavaSourceFromString jsfs = new JavaSourceFromString("C", javaCode);
+			JavaSourceFromString jsfs = new JavaSourceFromString(CLASS_NAME, javaCode);
 			Iterable<? extends JavaFileObject> fileObjects = Arrays.asList(jsfs);
 			StringWriter output = new StringWriter();
 			boolean isCompilationSuccessful = compiler.getTask(output, fileManager, null, null, null, fileObjects).call();
@@ -72,7 +73,6 @@ public class JvsCompiler {
 	}
 
 	private static StringBuilder getHead() {
-		final String CLASS_NAME = "C";
 		StringBuilder head = new StringBuilder();
 		head.append("import static java.lang.Math.*;");
 		head.append("import static org.robusta.macros.Stdin.*;");
@@ -81,10 +81,16 @@ public class JvsCompiler {
 		head.append("import static org.robusta.macros.IO.*;");
 		head.append("import static org.robusta.compiler.RunTimeErrorHandler.*;");
 		head.append("import org.robusta.macros.Console;");
-		head.append("public class " + CLASS_NAME + "{");
+		head.append("import org.robusta.macros.Drawer;");
+		head.append("import static org.robusta.macros.Drawer.reset;");
+		head.append("import static org.robusta.macros.Drawer.setPixel;");
+		head.append("import static org.robusta.macros.Drawer.getPixel;");
+		head.append(String.format("public class %s {", CLASS_NAME));
 		head.append("public static void main(String[] args) {");
 		head.append("Console.getInstance();");
-		head.append("try{ new C ().main(); } catch(Exception e) { handle(e); }");
+		head.append("Drawer drawer = Drawer.getInstance();");
+		head.append(String.format("try{ new %s ().main(); } catch(Exception e) { handle(e); }", CLASS_NAME));
+		head.append("drawer.start();");
 		head.append("}");
 		return head;
 	}
