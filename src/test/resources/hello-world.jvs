@@ -1,7 +1,9 @@
-void main(){
+void main() {
 
-String i = readString("");
+    String i = readString("");
     println("hello world");
     println("hello world");
 
+    reset(200, 100);
+    for (int j = 0; j < 200; j++) setPixel(3, j, (j % 255));
 }
