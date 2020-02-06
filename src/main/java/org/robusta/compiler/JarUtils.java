@@ -73,7 +73,7 @@ public class JarUtils {
 		Manifest manifest = new Manifest();
 		Attributes main = manifest.getMainAttributes();
 		main.putValue("Manifest-Version", "1.0");
-		main.putValue("Main-Class", "C");
+		main.putValue("Main-Class", JvsCompiler.MAIN_CLASS_NAME);
 		return manifest;
 	}
 }

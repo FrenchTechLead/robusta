@@ -9,7 +9,7 @@ public class CompilationErrorHandler {
 		String [] lines = errorStr.split("\r\n|\r|\n");
 		for(int i = 0 ; i < lines.length ; i++) {
 			String line = lines [i];
-			if (line.contains("C.java")) {
+			if (line.contains(JvsCompiler.MAIN_CLASS_NAME + ".java")) {
 				for(int j = i; j < lines.length; j++) {
 					String line2 = lines [j];
 					if(line2.contains("^")) {

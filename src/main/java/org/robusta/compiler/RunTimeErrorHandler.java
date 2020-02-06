@@ -10,7 +10,7 @@ public class RunTimeErrorHandler {
 		StackTraceElement[] stack = e.getStackTrace();
 
 		for(StackTraceElement trace: stack) {
-			if(trace.getClassName().equals("C")) {
+			if(trace.getClassName().equals(JvsCompiler.MAIN_CLASS_NAME)) {
 				lineNumber = trace.getLineNumber();
 				break;
 			}

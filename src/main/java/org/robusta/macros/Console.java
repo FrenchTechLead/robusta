@@ -14,33 +14,26 @@ import javax.swing.JTextArea;
 
 public class Console extends JFrame {
 
-	private static Console CONSOLE_INSTANCE;
 	private static volatile JTextArea output = new JTextArea();
 	private static volatile JScrollPane scrollFrame;
 	private static final long serialVersionUID = 6543132165763L;
 	
+	
+	// This main method is just for test purpose
 	public static void main(String [] s) {
 		new Console();
 		Integer i = Stdin.readInteger();
+		Stdout.print(i);
 	}
 	
-	private Console() {
-		super("Robusta");
-
+	public Console() {
+		super("Robusta - Terminal");
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
 		});
 		this.start();
-	}
-	
-	public static synchronized Console getInstance() {
-		if(CONSOLE_INSTANCE == null) {
-			return new Console();
-		} else {
-			return CONSOLE_INSTANCE;
-		}
 	}
 	
 	private static JPanel getConsole() {
