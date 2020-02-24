@@ -1,6 +1,10 @@
+
+<img src="https://sciences-tech.u-pec.fr/uas/g-sciences/LOGO/2017_11_27_Logotype-Faculte-ST_rvb.svg" alt="upec" width="200"/>
+
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![CircleCI](https://circleci.com/gh/Meshredded/robusta.svg?style=svg)](https://circleci.com/gh/Meshredded/robusta)
+
 # Welcome to Robusta
 Robusta is a basic programming language based on java, it was designed for learning the basics of software programming without the hasle of the advanced principles and hard configurations. 
 

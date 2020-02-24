@@ -15,6 +15,9 @@ import javax.tools.StandardLocation;
 import javax.tools.ToolProvider;
 
 public class JvsCompiler {
+	
+	public final static String MAIN_CLASS_NAME = "C";
+	
 	private static final File parentDirectory = new File(System.getProperty("user.dir"));
 	
 	public static void build(String jvsFilePath) {
@@ -44,7 +47,7 @@ public class JvsCompiler {
 			}
 			String jvsCode = readFile(jvsFile);
 			String javaCode = translate(jvsCode);
-			JavaSourceFromString jsfs = new JavaSourceFromString("C", javaCode);
+			JavaSourceFromString jsfs = new JavaSourceFromString(MAIN_CLASS_NAME, javaCode);
 			Iterable<? extends JavaFileObject> fileObjects = Arrays.asList(jsfs);
 			StringWriter output = new StringWriter();
 			boolean isCompilationSuccessful = compiler.getTask(output, fileManager, null, null, null, fileObjects).call();
@@ -63,27 +66,30 @@ public class JvsCompiler {
 	}
 
 	private static String translate(String jvsCode) {
-		String text = jvsCode.replace((char) 160, ' ');
-		StringBuilder body = new StringBuilder();
-		body.append(text);
-		String finalBody = body.toString();
+		String body = jvsCode.replace((char) 160, ' ');
 		String head = getHead().toString();
-		return head + finalBody + "}";
+		return head + body + "}";
 	}
 
 	private static StringBuilder getHead() {
-		final String CLASS_NAME = "C";
 		StringBuilder head = new StringBuilder();
+		
+		head.append("import org.robusta.macros.Console;");
+		head.append("import org.robusta.macros.Drawer;");
+		
+		head.append("import static org.robusta.macros.Drawer.*;");
 		head.append("import static java.lang.Math.*;");
 		head.append("import static org.robusta.macros.Stdin.*;");
 		head.append("import static org.robusta.macros.Stdout.*;");
 		head.append("import static org.robusta.macros.Utils.*;");
 		head.append("import static org.robusta.macros.IO.*;");
+		
 		head.append("import static org.robusta.compiler.RunTimeErrorHandler.*;");
-		head.append("import org.robusta.macros.Console;");
-		head.append("public class " + CLASS_NAME + "{");
+		
+		head.append("public class " + MAIN_CLASS_NAME + "{");
 		head.append("public static void main(String[] args) {");
-		head.append("Console.getInstance();");
+		head.append("new Console();");
+		head.append("new Drawer();");
 		head.append("try{ new C ().main(); } catch(Exception e) { handle(e); }");
 		head.append("}");
 		return head;
