@@ -1,7 +1,11 @@
 package org.robusta.macros;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.TextField;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -11,15 +15,24 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
-/*
- * ***************************
- * ******** DRAWER CLASS *****
- * ***************************
- */
+/* DRAWER CLASS */
 public class Drawer {
 
 	private static JFrame frame;
 	private static DrawerSurface surface;
+
+	// this method is just for test purpose
+	public static void main(String[] args) throws Exception {
+		new Drawer();
+		reset(256, 256);
+		for (int i = -256; i < 256; i++) {
+			setPixel(i, i, 0);
+			setPixel(-i, -i, 0);
+			setPixel(-i, i, 0);
+			setPixel(i, -i, 0);
+
+		}
+	}
 
 	public Drawer() {
 		surface = new DrawerSurface();
@@ -29,27 +42,26 @@ public class Drawer {
 				System.exit(0);
 			}
 		});
+		frame.addMouseWheelListener((e) -> {
+			Drawer.surface.zoom(e.getPreciseWheelRotation());
+		});
 	}
 
 	public static synchronized boolean setPixel(int x, int y, int r, int g, int b) {
 		surface.setPixel(x, y, r, g, b);
-		return checkBoundaries(x, y);
+		return isOutOfBoundaries(x, y);
 	}
 
 	public static synchronized boolean setPixel(int x, int y, int grayValue) {
 		surface.setPixel(x, y, grayValue);
-		return checkBoundaries(x, y);
+		return isOutOfBoundaries(x, y);
 	}
 
 	public static synchronized boolean setPixel(int x, int y, String color) {
 		surface.setPixel(x, y, color);
-		return checkBoundaries(x, y);
+		return isOutOfBoundaries(x, y);
 	}
 
-	/*
-	 * public static synchronized int getPixel(int x, int y) { return
-	 * surface.getPixel(x, y); }
-	 */
 	public static synchronized int getWidth() {
 		return frame.getWidth() / 2;
 	}
@@ -61,39 +73,36 @@ public class Drawer {
 	public static void reset(int w, int h) {
 		int width = w * 2;
 		int height = h * 2;
+		TextField c = new TextField("You can zoom using mouse wheel.");
+		c.setPreferredSize(new Dimension(width, 20));
+		c.setEditable(false);
+		c.setEnabled(false);
+		frame.getContentPane().setPreferredSize(new Dimension(width, height + 20));
+		frame.getContentPane().add(c, BorderLayout.NORTH);
+		surface.setPreferredSize(new Dimension(width, height));
+		frame.getContentPane().add(surface, BorderLayout.CENTER);
+		frame.pack();
+		frame.getContentPane().setBackground(Color.WHITE);
 		frame.setLocation(780, 0);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setAlwaysOnTop(false);
-		frame.setSize(width, height);
-		surface.setSize(width, height);
-		frame.getContentPane().add(surface);
 		frame.setResizable(false);
 		frame.setVisible(true);
+
 	}
 
-	private static boolean checkBoundaries(int x, int y) {
-		boolean isOk = true;
-		if (! frame.isVisible()) {
-			isOk = false;
+	private static boolean isOutOfBoundaries(int x, int y) {
+		if (x > frame.getWidth() / 2 || x < -frame.getWidth() / 2 || y > frame.getHeight() / 2
+				|| y < -frame.getHeight() / 2) {
+			return false;
 		}
-		if (x > frame.getWidth() / 2 || x < -frame.getWidth() / 2) {
-			isOk = false;
-		}
-		if (y > frame.getHeight() / 2 || y < -frame.getHeight() / 2) {
-			isOk = false;
-		}
-		return isOk;
-
+		return true;
 	}
 }
 
-/*
- * *********************************** ******** DRAWER SURFACE CLASS *****
- * ***********************************
- */
+/* DRAWER SURFACE CLASS */
 class DrawerSurface extends JComponent {
 	private static final long serialVersionUID = -3789133815287680248L;
 	private List<Point> points;
+	private double zoom = 1;
 
 	DrawerSurface() {
 		this.points = new ArrayList<Point>();
@@ -101,40 +110,43 @@ class DrawerSurface extends JComponent {
 
 	@Override
 	public void paintComponent(Graphics g) {
+		g.translate(this.getWidth() / 2, this.getHeight() / 2);
+		g.setPaintMode();
 		super.paintComponent(g);
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.scale(this.zoom, this.zoom);
 		for (int i = 0; i < this.points.size(); i++) {
 			Point p = this.points.get(i);
 			g.setColor(p.color);
-			g.drawLine(p.x, p.y, p.x, p.y);
+			g.drawLine(p.x, -p.y, p.x, -p.y);
+
 		}
 	}
 
+	protected void zoom(double z) {
+		this.zoom = this.zoom + z / 6;
+		this.repaint();
+	}
+
 	protected void setPixel(int x, int y, String colorStr) {
-		x = x + (this.getWidth() / 2);
-		y = -y + (this.getHeight() / 2);
 		this.points.add(new Point(x, y, ColorFactory.getColor(colorStr)));
 		this.repaint();
 	}
 
 	protected void setPixel(int x, int y, int r, int g, int b) {
-		x = x + (this.getWidth() / 2);
-		y = -y + (this.getHeight() / 2);
 		this.points.add(new Point(x, y, new Color(r, g, b, 0)));
 		this.repaint();
 	}
 
-	protected void setPixel(int x, int y, int greyValue) {
-		x = x + (this.getWidth() / 2);
-		y = -y + (this.getHeight() / 2);
-		this.points.add(new Point(x, y, new Color(0, 0, 0, greyValue)));
+	protected void setPixel(int x, int y, int v) {
+		v = v < 0 ? 0 : v > 255 ? 255 : v;
+		v = Math.abs(255 - v);
+		this.points.add(new Point(x, y, new Color(0, 0, 0, v)));
 		this.repaint();
 	}
 }
 
-/*
- * *************************** ******** POINT CLASS ******
- * ***************************
- */
+/* POINT CLASS */
 class Point {
 	public int x, y;
 	public Color color;
@@ -144,7 +156,7 @@ class Point {
 		this.y = y;
 		this.color = color;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		Point p = (Point) obj;
@@ -152,10 +164,7 @@ class Point {
 	}
 }
 
-/*
- * *************************************** ************ COLOR FACTORY CLASS
- * ****** ***************************************
- */
+/* COLOR FACTORY CLASS */
 class ColorFactory {
 
 	private static HashMap<String, Color> colors = createColors();
