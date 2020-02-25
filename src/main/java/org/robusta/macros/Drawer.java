@@ -24,14 +24,8 @@ public class Drawer {
 	// this method is just for test purpose
 	public static void main(String[] args) throws Exception {
 		new Drawer();
-		reset(256, 256);
-		for (int i = -256; i < 256; i++) {
-			setPixel(i, i, 0);
-			setPixel(-i, -i, 0);
-			setPixel(-i, i, 0);
-			setPixel(i, -i, 0);
-
-		}
+		reset(200, 200);
+	    for (int i = 4; i < 150; i++) setPixel(i, i, 230, 230, 230);
 	}
 
 	public Drawer() {
@@ -134,7 +128,7 @@ class DrawerSurface extends JComponent {
 	}
 
 	protected void setPixel(int x, int y, int r, int g, int b) {
-		this.points.add(new Point(x, y, new Color(r, g, b, 0)));
+		this.points.add(new Point(x, y, new Color(r, g, b, 255)));
 		this.repaint();
 	}
 
