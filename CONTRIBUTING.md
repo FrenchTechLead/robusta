@@ -22,4 +22,4 @@ To generate robusta.jar locally ( in target/robusta.jar ), tape the following co
 > mvn clean compile assembly:single
 ```
 
-> Don't hesitate to contribute even by translating the [documentation](docs/DOCS.md) to your language.
+> Don't hesitate to contribute even by translating the [documentation](https://github.com/Meshredded/robusta/wiki) to your language.
