@@ -21,3 +21,5 @@ To generate robusta.jar locally ( in target/robusta.jar ), tape the following co
 # this command will generate a standalone executable jar file
 > mvn clean compile assembly:single
 ```
+
+> Don't hesitate to contribute even by translating the [documentation](docs/DOCS.md) to your language.
