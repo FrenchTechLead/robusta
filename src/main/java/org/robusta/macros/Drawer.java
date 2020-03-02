@@ -8,9 +8,10 @@ import java.awt.Graphics2D;
 import java.awt.TextField;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -25,7 +26,14 @@ public class Drawer {
 	public static void main(String[] args) throws Exception {
 		new Drawer();
 		reset(200, 200);
-	    for (int i = 4; i < 150; i++) setPixel(i, i, 230, 230, 230);
+		for (int i = 0; i < 201; i++) {
+			setPixel(i, i, 0, 0, 0);
+			setPixel(-i, -i, 0, 0, 0);
+			setPixel(i, -i, 0, 0, 0);
+			setPixel(-i, i, 0, 0, 0);
+			Utils.sleep(100);
+		}
+
 	}
 
 	public Drawer() {
@@ -95,11 +103,11 @@ public class Drawer {
 /* DRAWER SURFACE CLASS */
 class DrawerSurface extends JComponent {
 	private static final long serialVersionUID = -3789133815287680248L;
-	private List<Point> points;
+	private Map<Point, Color> points;
 	private double zoom = 1;
 
 	DrawerSurface() {
-		this.points = new ArrayList<Point>();
+		this.points = new HashMap<Point, Color>();
 	}
 
 	@Override
@@ -109,11 +117,13 @@ class DrawerSurface extends JComponent {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.scale(this.zoom, this.zoom);
-		for (int i = 0; i < this.points.size(); i++) {
-			Point p = this.points.get(i);
-			g.setColor(p.color);
+		Iterator<Entry<Point, Color>> it = this.points.entrySet().iterator();
+		while (it.hasNext()) {
+			Entry<Point, Color> e = it.next();
+			Point p = e.getKey();
+			Color c = e.getValue();
+			g.setColor(c);
 			g.drawLine(p.x, -p.y, p.x, -p.y);
-
 		}
 	}
 
@@ -123,19 +133,19 @@ class DrawerSurface extends JComponent {
 	}
 
 	protected void setPixel(int x, int y, String colorStr) {
-		this.points.add(new Point(x, y, ColorFactory.getColor(colorStr)));
+		this.points.put(new Point(x, y), ColorFactory.getColor(colorStr));
 		this.repaint();
 	}
 
 	protected void setPixel(int x, int y, int r, int g, int b) {
-		this.points.add(new Point(x, y, new Color(r, g, b, 255)));
+		this.points.put(new Point(x, y), new Color(r, g, b, 255));
 		this.repaint();
 	}
 
 	protected void setPixel(int x, int y, int v) {
 		v = v < 0 ? 0 : v > 255 ? 255 : v;
 		v = Math.abs(255 - v);
-		this.points.add(new Point(x, y, new Color(0, 0, 0, v)));
+		this.points.put(new Point(x, y), new Color(0, 0, 0, v));
 		this.repaint();
 	}
 }
@@ -143,19 +153,23 @@ class DrawerSurface extends JComponent {
 /* POINT CLASS */
 class Point {
 	public int x, y;
-	public Color color;
 
-	public Point(int x, int y, Color color) {
+	public Point(int x, int y) {
 		this.x = x;
 		this.y = y;
-		this.color = color;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		Point p = (Point) obj;
-		return this.x == p.x && this.y == p.y && this.color.equals(p);
+		return this.x == p.x && this.y == p.y;
 	}
+
+	@Override
+	public int hashCode() {
+		return x * 31 + y;
+	}
+
 }
 
 /* COLOR FACTORY CLASS */
