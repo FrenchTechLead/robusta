@@ -9,9 +9,8 @@ import java.awt.TextField;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -107,7 +106,7 @@ class DrawerSurface extends JComponent {
 	private double zoom = 1;
 
 	DrawerSurface() {
-		this.points = new HashMap<Point, Color>();
+		this.points = new ConcurrentHashMap<Point, Color>();
 	}
 
 	@Override
@@ -117,14 +116,10 @@ class DrawerSurface extends JComponent {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.scale(this.zoom, this.zoom);
-		Iterator<Entry<Point, Color>> it = this.points.entrySet().iterator();
-		while (it.hasNext()) {
-			Entry<Point, Color> e = it.next();
-			Point p = e.getKey();
-			Color c = e.getValue();
+		this.points.forEach( (p, c) -> {
 			g.setColor(c);
 			g.drawLine(p.x, -p.y, p.x, -p.y);
-		}
+		});
 	}
 
 	protected void zoom(double z) {
