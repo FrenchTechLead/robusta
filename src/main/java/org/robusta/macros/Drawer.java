@@ -80,9 +80,9 @@ public class Drawer {
 		
 		surface.setSize(wX2 * ZOOM_FACTOR, hX2 * ZOOM_FACTOR);
 		surface.setPreferredSize(dim);
-		surface.setBackground(Color.WHITE);
+		surface.setBackground(Color.LIGHT_GRAY);
 		JPanel p1 = new JPanel();
-		p1.setBackground(Color.WHITE);
+		p1.setBackground(Color.LIGHT_GRAY);
 		p1.add(surface);
 		p1.setPreferredSize(dim);
 		JPanel p2 = new JPanel();
