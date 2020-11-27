@@ -1,19 +1,15 @@
 package org.robusta.macros;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.TextField;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /* DRAWER CLASS */
 public class Drawer {
@@ -21,16 +17,22 @@ public class Drawer {
 	private static JFrame frame;
 	private static DrawerSurface surface;
 
+	private static int WIDTH;
+	private static int HEIGTH;
+	private final static int MAX_W = 600;
+	private final static int MAX_H = 600;
+	protected static int ZOOM_FACTOR = 1;
+
 	// this method is just for test purpose
 	public static void main(String[] args) throws Exception {
 		new Drawer();
-		reset(200, 200);
-		for (int i = 0; i < 201; i++) {
+		reset(50, 50);
+		for (int i = 0; i < 50; i++) {
 			setPixel(i, i, 0, 0, 0);
 			setPixel(-i, -i, 0, 0, 0);
 			setPixel(i, -i, 0, 0, 0);
 			setPixel(-i, i, 0, 0, 0);
-			Utils.sleep(100);
+			 //Utils.sleep(100);
 		}
 
 	}
@@ -38,14 +40,9 @@ public class Drawer {
 	public Drawer() {
 		surface = new DrawerSurface();
 		frame = new JFrame("Robusta - Drawer");
-		frame.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				System.exit(0);
-			}
-		});
-		frame.addMouseWheelListener((e) -> {
-			Drawer.surface.zoom(e.getPreciseWheelRotation());
-		});
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setPreferredSize(new Dimension(MAX_W, MAX_H));
+
 	}
 
 	public static synchronized boolean setPixel(int x, int y, int r, int g, int b) {
@@ -64,35 +61,44 @@ public class Drawer {
 	}
 
 	public static synchronized int getWidth() {
-		return frame.getWidth() / 2;
+		return Drawer.WIDTH;
 	}
 
 	public static synchronized int getHeight() {
-		return frame.getHeight() / 2;
+		return Drawer.HEIGTH;
 	}
 
 	public static void reset(int w, int h) {
-		int width = w * 2;
-		int height = h * 2;
-		TextField c = new TextField("You can zoom using mouse wheel.");
-		c.setPreferredSize(new Dimension(width, 20));
-		c.setEditable(false);
-		c.setEnabled(false);
-		frame.getContentPane().setPreferredSize(new Dimension(width, height + 20));
-		frame.getContentPane().add(c, BorderLayout.NORTH);
-		surface.setPreferredSize(new Dimension(width, height));
-		frame.getContentPane().add(surface, BorderLayout.CENTER);
-		frame.pack();
-		frame.getContentPane().setBackground(Color.WHITE);
+		Drawer.WIDTH = w;
+		Drawer.HEIGTH = h;
+		
+		int wX2 = w * 2;
+		int hX2 = h * 2;
+		ZOOM_FACTOR = MAX_H / Math.max(wX2, hX2) ;
+		Dimension dim = new Dimension(wX2 * ZOOM_FACTOR, hX2 * ZOOM_FACTOR);
+		surface.zoom(ZOOM_FACTOR);
+		
+		surface.setSize(wX2 * ZOOM_FACTOR, hX2 * ZOOM_FACTOR);
+		surface.setPreferredSize(dim);
+		surface.setBackground(Color.WHITE);
+		JPanel p1 = new JPanel();
+		p1.setBackground(Color.WHITE);
+		p1.add(surface);
+		p1.setPreferredSize(dim);
+		JPanel p2 = new JPanel();
+		p2.setBackground(Color.DARK_GRAY);
+		p2.add(p1);
+		p2.setPreferredSize(new Dimension (wX2, hX2));
+		frame.getContentPane().add(p2);
 		frame.setLocation(780, 0);
 		frame.setResizable(false);
+		frame.pack();
 		frame.setVisible(true);
 
 	}
 
 	private static boolean isOutOfBoundaries(int x, int y) {
-		if (x > frame.getWidth() / 2 || x < -frame.getWidth() / 2 || y > frame.getHeight() / 2
-				|| y < -frame.getHeight() / 2) {
+		if (x > Drawer.WIDTH || x < -Drawer.WIDTH || y > Drawer.HEIGTH || y < -Drawer.HEIGTH) {
 			return false;
 		}
 		return true;
@@ -100,7 +106,7 @@ public class Drawer {
 }
 
 /* DRAWER SURFACE CLASS */
-class DrawerSurface extends JComponent {
+class DrawerSurface extends JPanel {
 	private static final long serialVersionUID = -3789133815287680248L;
 	private Map<Point, Color> points;
 	private double zoom = 1;
@@ -111,19 +117,20 @@ class DrawerSurface extends JComponent {
 
 	@Override
 	public void paintComponent(Graphics g) {
-		g.translate(this.getWidth() / 2, this.getHeight() / 2);
+		g.translate(Drawer.getWidth() * Drawer.ZOOM_FACTOR, 
+				Drawer.getHeight() * Drawer.ZOOM_FACTOR);
 		g.setPaintMode();
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.scale(this.zoom, this.zoom);
-		this.points.forEach( (p, c) -> {
+		this.points.forEach((p, c) -> {
 			g.setColor(c);
 			g.drawLine(p.x, -p.y, p.x, -p.y);
 		});
 	}
 
 	protected void zoom(double z) {
-		this.zoom = this.zoom + z / 6;
+		this.zoom = z;
 		this.repaint();
 	}
 
